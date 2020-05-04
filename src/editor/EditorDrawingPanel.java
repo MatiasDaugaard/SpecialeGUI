@@ -141,18 +141,23 @@ public class EditorDrawingPanel extends DrawingPanel{
 	}
 	
 	public void addSwitchRail(int i, int j, Direction d, Direction p) {
+		
 		if(d == Direction.Left && p == Direction.Up) {
 			if(j==0 || i==0) {
 				return;
 			}
 			if(rails[i][j] <= 1 && rails[i][j-1] <= 1 && rails[i-1][j-1] <= 1) {
-				
-				rails[i][j] = 3;
-				rails[i][j-1] = 4;
-				rails[i-1][j-1] = 5;
 				int start = i*WIDTH+j;
 				int end1 = i*WIDTH+(j-1);
 				int end2 = (i-1)*WIDTH+(j-1);
+				int loc = (i-1)*WIDTH+(j);
+				if(railList.contains(new Rail(start,end1)) || railList.contains(new Rail(end2,loc))) {
+					return;
+				}
+				rails[i][j] = 3;
+				rails[i][j-1] = 4;
+				rails[i-1][j-1] = 5;
+				
 				SwitchRail r = new SwitchRail(start, end1, end2, d);
 				switchRailList.add(r);
 			}
@@ -161,12 +166,17 @@ public class EditorDrawingPanel extends DrawingPanel{
 				return;
 			}
 			if(rails[i][j] <= 1 && rails[i][j-1] <= 1 && rails[i+1][j-1] <= 1) {
-				rails[i][j] = 3;
-				rails[i][j-1] = 4;
-				rails[i+1][j-1] = 5;
 				int start = i*WIDTH+j;
 				int end1 = i*WIDTH+(j-1);
 				int end2 = (i+1)*WIDTH+(j-1);
+				int loc = (i+1)*WIDTH+(j);
+				if(railList.contains(new Rail(start,end1)) || railList.contains(new Rail(end2,loc))) {
+					return;
+				}
+				rails[i][j] = 3;
+				rails[i][j-1] = 4;
+				rails[i+1][j-1] = 5;
+				
 				SwitchRail r = new SwitchRail(start, end1, end2, d);
 				switchRailList.add(r);
 			}
@@ -175,12 +185,17 @@ public class EditorDrawingPanel extends DrawingPanel{
 				return;
 			}
 			if(rails[i][j] <= 1 && rails[i][j+1] <= 1 && rails[i-1][j+1] <= 1) {
-				rails[i][j] = 3;
-				rails[i][j+1] = 4;
-				rails[i-1][j+1] = 6;
 				int start = i*WIDTH+(j);
 				int end1 = i*WIDTH+(j+1);
 				int end2 = (i-1)*WIDTH+(j+1);
+				int loc = (i-1)*WIDTH+j;
+				if(railList.contains(new Rail(start,end1)) || railList.contains(new Rail(end2,loc))) {
+					return;
+				}
+				rails[i][j] = 3;
+				rails[i][j+1] = 4;
+				rails[i-1][j+1] = 6;
+				
 				SwitchRail r = new SwitchRail(start, end1, end2, d);
 				switchRailList.add(r);
 			}
@@ -189,12 +204,17 @@ public class EditorDrawingPanel extends DrawingPanel{
 				return;
 			}
 			if(rails[i][j] <= 1 && rails[i][j+1] <= 1 && rails[i+1][j+1] <= 1) {
-				rails[i][j] = 3;
-				rails[i][j+1] = 4;
-				rails[i+1][j+1] = 6;
 				int start = i*WIDTH+(j);
 				int end1 = i*WIDTH+(j+1);
 				int end2 = (i+1)*WIDTH+(j+1);
+				int loc = (i+1)*WIDTH+j;
+				if(railList.contains(new Rail(start,end1)) || railList.contains(new Rail(end2,loc))) {
+					return;
+				}
+				rails[i][j] = 3;
+				rails[i][j+1] = 4;
+				rails[i+1][j+1] = 6;
+				
 				SwitchRail r = new SwitchRail(start, end1, end2, d);
 				switchRailList.add(r);
 			}

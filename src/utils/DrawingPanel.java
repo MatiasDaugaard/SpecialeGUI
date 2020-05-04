@@ -73,7 +73,9 @@ public class DrawingPanel extends JPanel{
 	    drawTrains(g);
 	    drawHighlight(g);
 	    
+	    
 	}
+    
     
     private void drawRails(Graphics g) {
     	g.setColor(Color.red);
