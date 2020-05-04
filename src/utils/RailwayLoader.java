@@ -12,7 +12,7 @@ public class RailwayLoader {
 	
 	public RailwayLoader() {}
 	
-	public boolean loadRailway(DrawingPanel drawingPanel, String title) {
+	public boolean loadRailway(DrawingPanel drawingPanel, String title, MenuPanel menuPanel) {
 		
 		File file = new File(title + ".txt");
 		BufferedReader reader = null;
@@ -129,6 +129,7 @@ public class RailwayLoader {
 		    
 		    drawingPanel.repaint();
 		    reader.close();
+		    menuPanel.loaded();
 		    return true;
 		} catch (Exception ex) {
 		    return false;

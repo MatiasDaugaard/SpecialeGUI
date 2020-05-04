@@ -1,6 +1,8 @@
 package editor;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,17 +11,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-public class EditorMenuPanel extends JPanel{
+import utils.MenuPanel;
+
+public class EditorMenuPanel extends MenuPanel{
 
 	
-	public static String fontName = "Lucida Grande";
-	public static int fontSize = 16;
-	public static Font normalFont = new Font(fontName,Font.PLAIN,fontSize);
-	public static Font boldFont = new Font(fontName,Font.BOLD,fontSize);
-	public static Font bigFont = new Font(fontName,Font.PLAIN,22);
+	//JTextField menuText;
 	
-	JTextField menuText;
-	JLabel saveLoadLabel;
 	
 	public EditorMenuPanel(EditorFrame frame) {
 		
@@ -32,9 +30,11 @@ public class EditorMenuPanel extends JPanel{
         menuLabel.setFont(bigFont);
         this.add(menuLabel);
         
-        menuText = new JTextField("Railway name");
-        menuText.setFont(normalFont);
-        this.add(menuText);
+        JTextField filenameField = new JTextField("Railway name");
+        filenameField.setFont(normalFont);
+        TextFieldListener tfListener = new TextFieldListener(this,filenameField);
+        filenameField.getDocument().addDocumentListener(tfListener);
+        this.add(filenameField);
         
         JButton railButton = new JButton();
         railButton.setText("Add rail(s)");
@@ -111,9 +111,9 @@ public class EditorMenuPanel extends JPanel{
         clearButton.setFont(normalFont);
         this.add(clearButton);
         
-        saveLoadLabel = new JLabel();
-        saveLoadLabel.setFont(normalFont);
-        this.add(saveLoadLabel);
+        loadLabel = new JLabel();
+        loadLabel.setFont(normalFont);
+        this.add(loadLabel);
         
         JButton loadButton = new JButton();
         loadButton.setText("Load railway");
@@ -153,12 +153,12 @@ public class EditorMenuPanel extends JPanel{
         menuLayout.putConstraint(SpringLayout.WEST,  menuLabel, 5,SpringLayout.WEST,  this);
         
         //Layout of textfield
-        menuLayout.putConstraint(SpringLayout.NORTH, menuText, 20,SpringLayout.SOUTH, menuLabel);
-        menuLayout.putConstraint(SpringLayout.EAST,  menuText,-5,SpringLayout.EAST,  this);
-        menuLayout.putConstraint(SpringLayout.WEST,  menuText, 5,SpringLayout.WEST,  this);
+        menuLayout.putConstraint(SpringLayout.NORTH, filenameField, 20,SpringLayout.SOUTH, menuLabel);
+        menuLayout.putConstraint(SpringLayout.EAST,  filenameField,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  filenameField, 5,SpringLayout.WEST,  this);
         
         //Layout of rail button
-        menuLayout.putConstraint(SpringLayout.NORTH, railButton, 10,SpringLayout.SOUTH, menuText);
+        menuLayout.putConstraint(SpringLayout.NORTH, railButton, 10,SpringLayout.SOUTH, filenameField);
         menuLayout.putConstraint(SpringLayout.EAST,  railButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  railButton, 5,SpringLayout.WEST, this);
         
@@ -221,9 +221,9 @@ public class EditorMenuPanel extends JPanel{
         menuLayout.putConstraint(SpringLayout.WEST,  clearButton, 5,SpringLayout.WEST,  this);
         
         //Layout of save load label
-        menuLayout.putConstraint(SpringLayout.SOUTH, saveLoadLabel, -10,SpringLayout.NORTH, loadButton);
-        menuLayout.putConstraint(SpringLayout.EAST,  saveLoadLabel,-5,SpringLayout.EAST,  this);
-        menuLayout.putConstraint(SpringLayout.WEST,  saveLoadLabel, 5,SpringLayout.WEST,  this);
+        menuLayout.putConstraint(SpringLayout.SOUTH, loadLabel, -10,SpringLayout.NORTH, loadButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  loadLabel,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  loadLabel, 5,SpringLayout.WEST,  this);
         
         //Layout of load button
         menuLayout.putConstraint(SpringLayout.SOUTH, loadButton, -10,SpringLayout.NORTH, saveButton);
@@ -237,12 +237,6 @@ public class EditorMenuPanel extends JPanel{
 		
 	}
 
-	public String getTitle() {
-		return menuText.getText();
-	}
 	
-	public void setLabelMessage(String s) {
-		saveLoadLabel.setText(s);
-		saveLoadLabel.setHorizontalAlignment(JLabel.CENTER);
-	}
+	
 }

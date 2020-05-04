@@ -1,5 +1,4 @@
 package editor;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +25,7 @@ public class SaveButtonListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String title = menuPanel.getTitle();
+		String title = menuPanel.getFilename();
 		try {
 		      File myObj = new File(title + ".txt");
 		      if (myObj.createNewFile()) {

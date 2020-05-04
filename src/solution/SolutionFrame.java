@@ -5,10 +5,14 @@ import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 
+import utils.DrawingPanel;
+
 
 public class SolutionFrame extends JFrame{
 	
 	
+	public DrawingPanel networkPanel;
+
 	public SolutionFrame() {
 		
 		super("Railway Network GUI");  
@@ -17,8 +21,8 @@ public class SolutionFrame extends JFrame{
         contentPane.setLayout(layout);
         
         
-        SolutionDrawingPanel networkPanel = new SolutionDrawingPanel();
-        SolutionMenuPanel menuPanel = new SolutionMenuPanel(); 
+        networkPanel = new SolutionDrawingPanel();
+        SolutionMenuPanel menuPanel = new SolutionMenuPanel(this); 
         
         contentPane.add(menuPanel);
         contentPane.add(networkPanel);
