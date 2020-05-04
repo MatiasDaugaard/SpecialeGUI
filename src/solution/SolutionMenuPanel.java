@@ -62,6 +62,7 @@ public class SolutionMenuPanel extends MenuPanel{
         startButton = new JButton("Start");
         startButton.setFont(normalFont);
         startButton.setVisible(false);
+        startButton.addActionListener(new StartButtonListener((SolutionDrawingPanel)frame.networkPanel));
         this.add(startButton);
         
         stopButton = new JButton("Stop");
@@ -72,6 +73,7 @@ public class SolutionMenuPanel extends MenuPanel{
         restartButton = new JButton("Restart");
         restartButton.setFont(normalFont);
         restartButton.setVisible(false);
+        restartButton.addActionListener(new RestartButtonListener((SolutionDrawingPanel)frame.networkPanel));
         this.add(restartButton);
         
         
