@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
 
+import solution.SolutionDrawingPanel;
 import utils.DrawingPanel;
 import utils.MenuPanel;
 import utils.RailwayLoader;
@@ -28,6 +29,10 @@ public class LoadButtonListener implements ActionListener{
 		
 		RailwayLoader loader = new RailwayLoader();
 		if(loader.loadRailway(drawingPanel, title, menuPanel)) {
+			if(drawingPanel instanceof SolutionDrawingPanel) {
+				
+				loader.loadSolution(title, (SolutionDrawingPanel)drawingPanel);
+			}
 			menuPanel.setLabelMessage("Success");
 		}else {
 			menuPanel.setLabelMessage("Failed to load railway");

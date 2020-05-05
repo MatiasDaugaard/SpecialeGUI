@@ -3,6 +3,8 @@ package solution;
 import java.awt.Color;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,22 +35,48 @@ public class SolutionMenuPanel extends MenuPanel{
         //Find all railways in current directory
         // TODO : create .sol files instead of .txt and has to exist for both. sol files contains solution. txt files contain railway
         File f = new File(".");
-        File[] matchingFiles = f.listFiles(new FilenameFilter() {
+        File[] railwayFiles = f.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return name.endsWith(".txt");
             }
         });
         
-        String[] solutionFiles = new String[matchingFiles.length];
-        for(int i = 0; i < matchingFiles.length ; i++) {
-        	String file = matchingFiles[i].getName();
-        	solutionFiles[i] = file.substring(0, file.length()-4);
+        File[] solutionFiles = f.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".sol");
+            }
+        });
+        
+        Set<String> railwayFileSet = new HashSet<>();
+        for(File fl : railwayFiles) {
+        	String file = fl.getName();
+        	railwayFileSet.add(file.substring(0, file.length()-4));
         }
+        
+        Set<String> solutionFileSet = new HashSet<>();
+        for(File fl : solutionFiles) {
+        	String file = fl.getName();
+        	solutionFileSet.add(file.substring(0, file.length()-4));
+        }
+        
+        solutionFileSet.removeIf(s -> !railwayFileSet.contains(s));
+        String[] files = new String[solutionFileSet.size()];
+        int i = 0;
+        for(String s : solutionFileSet) {
+        	files[i] = s;
+        	i++;
+        }
+        
+        
+        
 
         
-        JComboBox<String> solutionList = new JComboBox<String>(solutionFiles);
-        solutionList.setSelectedIndex(0);
-        filename = solutionList.getItemAt(0);
+        JComboBox<String> solutionList = new JComboBox<String>(files);
+        if(files.length > 0) {
+        	solutionList.setSelectedIndex(0);
+            filename = solutionList.getItemAt(0);
+        }
+        
         solutionList.setFont(normalFont);
         solutionList.addActionListener(new SolutionListListener(solutionList, this));
         this.add(solutionList);

@@ -16,6 +16,7 @@ public class DrawingPanel extends JPanel{
 	protected int[][] signals = new int[HEIGHT][WIDTH];
 	protected List<Train> trainList;
 	protected List<Rail> railList;
+	protected List<Signal> signalList;
 	protected List<SwitchRail> switchRailList;
 	
 	public static int xOffset = 0;
@@ -37,6 +38,7 @@ public class DrawingPanel extends JPanel{
     	
 		this.setBackground(Color.LIGHT_GRAY);
 		trainList = new ArrayList<Train>();
+		signalList = new ArrayList<Signal>();
 		railList = new ArrayList<Rail>();
 		switchRailList = new ArrayList<SwitchRail>();
 		repaint();
@@ -227,6 +229,11 @@ public class DrawingPanel extends JPanel{
 	}
 	public void setSwitchRailList(List<SwitchRail> switchRailList){
 		this.switchRailList = switchRailList;
+	}
+
+	public void setSignalList(List<Signal> signalList) {
+		this.signalList = signalList;
+		
 	}
 
 }

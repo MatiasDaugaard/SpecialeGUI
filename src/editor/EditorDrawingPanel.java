@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import utils.Direction;
 import utils.DrawingPanel;
 import utils.Rail;
+import utils.Signal;
 import utils.SwitchRail;
 import utils.Train;
 
@@ -73,6 +74,8 @@ public class EditorDrawingPanel extends DrawingPanel{
 					signals[i][j] = 3;
 				}
 			}
+			int loc = i*WIDTH+j;
+			signalList.add(new Signal(loc, d));
 			repaint();
 		}
 		
@@ -80,6 +83,8 @@ public class EditorDrawingPanel extends DrawingPanel{
 	
 	public void removeSignal(int i, int j) {
 		signals[i][j] = 0;
+		int loc = i*WIDTH+j;
+		signalList.removeIf(s->s.getLocation() == loc);
 		setHighlight(-1,-1);
 		repaint();
 	}
