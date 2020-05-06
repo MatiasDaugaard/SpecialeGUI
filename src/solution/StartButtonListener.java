@@ -2,6 +2,7 @@ package solution;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 public class StartButtonListener implements ActionListener{
 	
@@ -14,7 +15,8 @@ public class StartButtonListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//TODO : Should run automatic 
-		panel.nextStep();
+		panel.start();
+			
 		
 	}
 

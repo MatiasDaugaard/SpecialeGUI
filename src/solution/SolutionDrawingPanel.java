@@ -2,8 +2,13 @@ package solution;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.Timer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,13 +25,14 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	private List<Map<SwitchRail,Boolean>> switchRailsSolution;
 	
 	private int counter;
+	private Timer timer;
 	
 	public SolutionDrawingPanel() {
 		super();
 		signalsSolution = new ArrayList<>();
 		trainsSolution = new ArrayList<>();
 		switchRailsSolution = new ArrayList<>();
-		
+		timer = new Timer(100, new TrainListener(this));
 		counter = 0;
 		
 		
@@ -73,10 +79,11 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    Map<Signal,Boolean> signalMap = signalsSolution.get(counter);
 	    for (Map.Entry<Signal, Boolean> entry : signalMap.entrySet()) {
 	    	Signal sig = entry.getKey();
-	    	int i = sig.getLocation()/HEIGHT;
+	    	int i = sig.getLocation()/WIDTH;
 	    	int j = sig.getLocation()%WIDTH;
 	    	int x = (5+j*xOffset)-5;
     		int y = (5+i*yOffset)-16;
+    		System.out.println(sig.getLocation());
 	    	if(entry.getValue()) {
 	    		g.setColor(Color.green);
 	    	}else {
@@ -94,6 +101,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	@Override
 	protected void drawSwitchRails(Graphics g) {
 		if(switchRailsSolution.size() == 0) {
+			super.drawSwitchRails(g);
 			return;
 		}
 		Map<SwitchRail,Boolean> switchRailMap = switchRailsSolution.get(counter);
@@ -153,13 +161,38 @@ public class SolutionDrawingPanel extends DrawingPanel{
 
 	}
 	
-	public void nextStep() {
+	public void start() {
+		timer.start();
 		
-		counter++;
-		repaint();
+		
+	}
+	
+	public void stop() {
+		timer.stop();
+	}
+	
+	private class TrainListener implements ActionListener{
+
+		private SolutionDrawingPanel panel;
+		
+		public TrainListener(SolutionDrawingPanel panel) {
+			this.panel = panel;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(counter < trainsSolution.size() -1) {
+            	panel.counter++;
+            	panel.repaint();
+            }else {
+            	stop();
+            }
+			
+		}
+		
 	}
 
 	public void restart() {
+		stop();
 		counter = 0;
 		repaint();
 		
@@ -194,5 +227,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		}
 		switchRailsSolution.add(switchrailMap);
 	}
+
+
 
 }

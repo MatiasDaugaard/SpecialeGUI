@@ -1,4 +1,5 @@
 package editor;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,14 +43,21 @@ public class SaveButtonListener implements ActionListener{
 		        	locations.add(r.getEnd1());
 		        	locations.add(r.getEnd2());
 		        }
+		        List<Integer> locationList = new ArrayList<>();
 		        for(Integer i : locations) {
+		        	locationList.add(i);
+		        }
+		        locationList.sort(null);
+		        for(Integer i : locationList) {
 		        	writer.write(i+"\n");
 		        }
 		        writer.write(":\n");
+		        railList.sort(null);
 		        for(Rail rail : railList) {
 		        	writer.write(rail.getStart() + " " + rail.getEnd() +"\n");
 		        }
 		        writer.write(":\n");
+		        switchRailList.sort(null);
 		        for(SwitchRail rail : switchRailList) {
 		        	writer.write(rail.getStart() + " " + rail.getEnd1() + " " +rail.getEnd2() + " " + rail.getDirection().toString() +"\n");
 		        }

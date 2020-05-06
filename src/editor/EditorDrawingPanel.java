@@ -96,6 +96,12 @@ public class EditorDrawingPanel extends DrawingPanel{
 		int end = m*WIDTH+n;
 		Rail r = new Rail(start,end);
 		if(!railList.contains(r)) {
+			if(rails[i][j] == 4 && rails[m][n] == 3) {
+				return;
+			}
+			if(rails[i][j] == 3 && rails[m][n] == 4) {
+				return;
+			}
 			if(rails[i][j] == 5 && n > j) {
 				return;
 			}

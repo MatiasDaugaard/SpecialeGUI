@@ -1,6 +1,6 @@
 package utils;
 
-public class SwitchRail {
+public class SwitchRail implements Comparable<SwitchRail>{
 
 	private int start;
 	private int end1;
@@ -44,6 +44,12 @@ public class SwitchRail {
 
 	public void setDirection(Direction d) {
 		this.d = d;
+	}
+
+	@Override
+	public int compareTo(SwitchRail r) {
+		
+		return start-r.start;
 	}
 	
 }

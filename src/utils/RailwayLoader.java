@@ -222,7 +222,9 @@ public class RailwayLoader {
 		    }
 		    
 		    reader.close();
-		} catch (Exception ex) {}
+		} catch (Exception ex) {
+			System.out.println("F in loading solution");
+		}
 		
 	}
 }

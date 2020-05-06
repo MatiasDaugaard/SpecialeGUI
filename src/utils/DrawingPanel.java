@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel{
 	
-	public static int WIDTH = 20;
+	public static int WIDTH = 45;
 	public static int HEIGHT = 20;
 	
 	protected int[][] rails = new int[HEIGHT][WIDTH];
