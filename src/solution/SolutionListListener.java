@@ -19,7 +19,6 @@ public class SolutionListListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(list.getSelectedItem().toString());
 		panel.setFilename(list.getSelectedItem().toString());
 		
 	}

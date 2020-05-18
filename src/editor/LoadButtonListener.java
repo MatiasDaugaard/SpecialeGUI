@@ -26,6 +26,9 @@ public class LoadButtonListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		String title = menuPanel.getFilename();
+		if(menuPanel instanceof EditorMenuPanel) {
+			title = menuPanel.getFilenameLoad();
+		}
 		
 		RailwayLoader loader = new RailwayLoader();
 		if(loader.loadRailway(drawingPanel, title, menuPanel)) {

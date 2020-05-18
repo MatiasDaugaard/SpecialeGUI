@@ -27,20 +27,19 @@ public class DrawingListener implements MouseListener,KeyListener{
 	    int j = (x-5 + EditorDrawingPanel.xOffset/2)/EditorDrawingPanel.xOffset;
 	    int i = (y-5 + EditorDrawingPanel.yOffset/2)/EditorDrawingPanel.yOffset;
 	    if(lastI == -1) {
-	    	if (ButtonListener.buttonType == ButtonType.Signal) {
-    	    	Direction d = ButtonListener.d;
-    	    	panel.addSignal(i, j, d);
+	    	if (panel.getButtonType() == ButtonType.Signal) {
+    	    	panel.addSignal(i, j);
     	    	panel.setHighlight(i,j);
-	    	}else if (ButtonListener.buttonType == ButtonType.RemoveSignal) {
+	    	}else if (panel.getButtonType() == ButtonType.RemoveSignal) {
 	    		panel.removeSignal(i,j);
 	    		panel.setHighlight(-1, -1);
-	    	}else if (ButtonListener.buttonType == ButtonType.RemoveTrain) {
+	    	}else if (panel.getButtonType() == ButtonType.RemoveTrain) {
 	    		panel.removeTrain(i, j);
 	    		panel.setHighlight(-1, -1);
-	    	}else if (ButtonListener.buttonType == ButtonType.SwitchRail) {
-	    		panel.addSwitchRail(i,j,ButtonListener.d,ButtonListener.p);
+	    	}else if (panel.getButtonType() == ButtonType.SwitchRail) {
+	    		panel.addSwitchRail(i,j);
 	    		panel.setHighlight(i,j);
-	    	}else if(ButtonListener.buttonType == ButtonType.RemoveSwitchRail) {
+	    	}else if(panel.getButtonType() == ButtonType.RemoveSwitchRail) {
 	    		panel.removeSwitchRail(i,j);
 	    		panel.setHighlight(i,j);
 	    	}else{
@@ -49,17 +48,17 @@ public class DrawingListener implements MouseListener,KeyListener{
 	    	    panel.setHighlight(lastI,lastJ);
 	    	}
     	}else {
-    		if (ButtonListener.buttonType == ButtonType.Rail) {
+    		if (panel.getButtonType() == ButtonType.Rail) {
     			if( (j == lastJ + 1 || j == lastJ - 1) && (i == lastI) ) {
     				panel.addRail(lastI, lastJ, i, j);
     			}
-    	    }else if (ButtonListener.buttonType == ButtonType.Train) {
+    	    }else if (panel.getButtonType() == ButtonType.Train) {
     	    	panel.addTrain(lastI, lastJ, i, j);
     	    	lastI = -1;
     	    	lastJ = -1;
     	    	panel.setHighlight(lastI, lastJ);
     	    	return;
-    	    }else if(ButtonListener.buttonType == ButtonType.RemoveRail) {
+    	    }else if(panel.getButtonType() == ButtonType.RemoveRail) {
     	    	if( (j == lastJ + 1 || j == lastJ - 1) && (i == lastI || i == lastI+1 || i == lastI-1 ) ) {
     				panel.removeRail(lastI, lastJ, i, j);
     			}

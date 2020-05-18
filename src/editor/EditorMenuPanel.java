@@ -3,22 +3,25 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FilenameFilter;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import solution.SolutionListListener;
 import utils.MenuPanel;
 
 public class EditorMenuPanel extends MenuPanel{
+	
+	
+	private String filenameLoad;
 
-	
-	//JTextField menuText;
-	
-	
 	public EditorMenuPanel(EditorFrame frame) {
 		
 		this.setBackground(Color.LIGHT_GRAY.brighter());
@@ -29,12 +32,6 @@ public class EditorMenuPanel extends MenuPanel{
         JLabel menuLabel = new JLabel("Create or edit railway");
         menuLabel.setFont(bigFont);
         this.add(menuLabel);
-        
-        JTextField filenameField = new JTextField("Railway name");
-        filenameField.setFont(normalFont);
-        TextFieldListener tfListener = new TextFieldListener(this,filenameField);
-        filenameField.getDocument().addDocumentListener(tfListener);
-        this.add(filenameField);
         
         JButton railButton = new JButton();
         railButton.setText("Add rail(s)");
@@ -65,6 +62,17 @@ public class EditorMenuPanel extends MenuPanel{
         downSwitchButton.setText("Down");
         downSwitchButton.setFont(normalFont);
         this.add(downSwitchButton);
+        
+        String[] heightOptions = {"1","2","3","4","5"};
+        
+        JComboBox<String> heightBox = new JComboBox<String>(heightOptions);
+        heightBox.setSelectedIndex(0);
+        frame.drawingPanel.setSwitchHeight(1);
+        
+        heightBox.setFont(normalFont);
+        heightBox.addActionListener(new EditorComboBoxListener(heightBox, frame.drawingPanel));
+        this.add(heightBox);
+        heightBox.setVisible(false);
         
         JButton signalButton = new JButton();
         signalButton.setText("Add signal(s)");
@@ -115,21 +123,55 @@ public class EditorMenuPanel extends MenuPanel{
         loadLabel.setFont(normalFont);
         this.add(loadLabel);
         
+        File f = new File(".");
+        File[] railwayFiles = f.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".txt");
+            }
+        });
+        
+        String[] fileOptions = new String[railwayFiles.length];
+        for(int i = 0; i < railwayFiles.length; i++) {
+        	String file = railwayFiles[i].getName();
+        	fileOptions[i] = file.substring(0, file.length()-4);
+        }
+        
+        JComboBox<String> fileBox = new JComboBox<String>(fileOptions);
+        fileBox.setSelectedIndex(0);
+        filenameLoad = fileBox.getSelectedItem().toString();
+        
+        
+        fileBox.setFont(normalFont);
+        fileBox.addActionListener(new EditorFileComboBoxListener(fileBox, this));
+        this.add(fileBox);
+        
         JButton loadButton = new JButton();
         loadButton.setText("Load railway");
         loadButton.setFont(normalFont);
         this.add(loadButton);
+        
+        JTextField filenameField = new JTextField("Railway name");
+        filenameField.setFont(normalFont);
+        TextFieldListener tfListener = new TextFieldListener(this,filenameField);
+        filenameField.getDocument().addDocumentListener(tfListener);
+        this.add(filenameField);
         
         JButton saveButton = new JButton();
         saveButton.setText("Save railway");
         saveButton.setFont(normalFont);
         this.add(saveButton);
         
+        JButton backButton = new JButton();
+        backButton.setText("Back");
+        backButton.setFont(normalFont);
+        backButton.addActionListener(new BackButtonListener(frame));
+        this.add(backButton);
+        
         
         
         JButton[] buttons = {railButton,switchRailButton,signalButton,trainButton,removeRailButton, removeSwitchRailButton,removeSignalButton,removeTrainButton};
         JRadioButton[] radioButtons = {leftSwitchButton,rightSwitchButton,upSwitchButton,downSwitchButton,leftButton,rightButton};
-        ButtonListener buttonListener = new ButtonListener(buttons,radioButtons);
+        ButtonListener buttonListener = new ButtonListener(buttons,radioButtons,heightBox,frame.drawingPanel);
         for(JRadioButton b : radioButtons) {
         	b.addActionListener(buttonListener);
         	b.setVisible(false);
@@ -152,13 +194,8 @@ public class EditorMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.EAST,  menuLabel,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  menuLabel, 5,SpringLayout.WEST,  this);
         
-        //Layout of textfield
-        menuLayout.putConstraint(SpringLayout.NORTH, filenameField, 20,SpringLayout.SOUTH, menuLabel);
-        menuLayout.putConstraint(SpringLayout.EAST,  filenameField,-5,SpringLayout.EAST,  this);
-        menuLayout.putConstraint(SpringLayout.WEST,  filenameField, 5,SpringLayout.WEST,  this);
-        
         //Layout of rail button
-        menuLayout.putConstraint(SpringLayout.NORTH, railButton, 10,SpringLayout.SOUTH, filenameField);
+        menuLayout.putConstraint(SpringLayout.NORTH, railButton, 10,SpringLayout.SOUTH, menuLabel);
         menuLayout.putConstraint(SpringLayout.EAST,  railButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  railButton, 5,SpringLayout.WEST, this);
         
@@ -179,8 +216,13 @@ public class EditorMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.EAST,  downSwitchButton,-50,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  upSwitchButton, 50,SpringLayout.WEST,  this);
         
+        //Layout of heightBox
+        menuLayout.putConstraint(SpringLayout.NORTH, heightBox, 10,SpringLayout.SOUTH, upSwitchButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  heightBox,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  heightBox, 5,SpringLayout.WEST, this);
+        
         //Layout of signal button
-        menuLayout.putConstraint(SpringLayout.NORTH, signalButton, 10,SpringLayout.SOUTH, upSwitchButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, signalButton, 10,SpringLayout.SOUTH, heightBox);
         menuLayout.putConstraint(SpringLayout.EAST,  signalButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  signalButton, 5,SpringLayout.WEST,  this);
         
@@ -221,19 +263,44 @@ public class EditorMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.WEST,  clearButton, 5,SpringLayout.WEST,  this);
         
         //Layout of save load label
-        menuLayout.putConstraint(SpringLayout.SOUTH, loadLabel, -10,SpringLayout.NORTH, loadButton);
+        menuLayout.putConstraint(SpringLayout.SOUTH, loadLabel, -10,SpringLayout.NORTH, fileBox);
         menuLayout.putConstraint(SpringLayout.EAST,  loadLabel,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  loadLabel, 5,SpringLayout.WEST,  this);
         
+      //Layout of save load label
+        menuLayout.putConstraint(SpringLayout.SOUTH, fileBox, -10,SpringLayout.NORTH, loadButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  fileBox,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  fileBox, 5,SpringLayout.WEST,  this);
+        
         //Layout of load button
-        menuLayout.putConstraint(SpringLayout.SOUTH, loadButton, -10,SpringLayout.NORTH, saveButton);
+        menuLayout.putConstraint(SpringLayout.SOUTH, loadButton, -10,SpringLayout.NORTH, filenameField);
         menuLayout.putConstraint(SpringLayout.EAST,  loadButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  loadButton, 5,SpringLayout.WEST,  this);
         
+        //Layout of textfield
+        menuLayout.putConstraint(SpringLayout.SOUTH, filenameField, -10,SpringLayout.NORTH, saveButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  filenameField,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  filenameField, 5,SpringLayout.WEST,  this);
+        
         //Layout of save button
-        menuLayout.putConstraint(SpringLayout.SOUTH, saveButton, -10,SpringLayout.SOUTH, this);
+        menuLayout.putConstraint(SpringLayout.SOUTH, saveButton, -10,SpringLayout.NORTH, backButton);
         menuLayout.putConstraint(SpringLayout.EAST,  saveButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  saveButton, 5,SpringLayout.WEST,  this);
+      
+        //Layout of save button
+        menuLayout.putConstraint(SpringLayout.SOUTH, backButton, -10,SpringLayout.SOUTH, this);
+        menuLayout.putConstraint(SpringLayout.EAST,  backButton,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  backButton, 5,SpringLayout.WEST,  this);
+		
+	}
+	
+	@Override
+	public String getFilenameLoad() {
+		return filenameLoad;
+	}
+
+	public void setFilenameLoad(String filename) {
+		filenameLoad = filename;
 		
 	}
 

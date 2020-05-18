@@ -33,7 +33,6 @@ public class SolutionMenuPanel extends MenuPanel{
         this.add(menuLabel);
         
         //Find all railways in current directory
-        // TODO : create .sol files instead of .txt and has to exist for both. sol files contains solution. txt files contain railway
         File f = new File(".");
         File[] railwayFiles = f.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {

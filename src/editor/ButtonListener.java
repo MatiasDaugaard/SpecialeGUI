@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 import utils.ButtonType;
@@ -13,43 +14,17 @@ public class ButtonListener implements ActionListener{
 
 	private JButton[] buttons;
 	private JRadioButton[] radioButtons;
-	public static ButtonType buttonType = ButtonType.Rail;
-	public static Direction d = Direction.Left;
-	public static Direction p = Direction.Up;
-	public ButtonListener(JButton[] buttons, JRadioButton[] radioButtons) {
+	private JComboBox<String> heightBox;
+	private EditorDrawingPanel panel;
+	
+	public ButtonListener(JButton[] buttons, JRadioButton[] radioButtons, JComboBox<String> heightBox, EditorDrawingPanel panel) {
 		this.buttons = buttons;
 		this.radioButtons = radioButtons;
+		this.heightBox = heightBox;
+		this.panel = panel;
 	}
 	
-	private void setButtonType(int i) {
-		switch (i) {
-		case 0 :
-			buttonType = ButtonType.Rail;
-			break;
-		case 1 : 
-			buttonType = ButtonType.SwitchRail;
-			break;
-		case 2 :
-			buttonType = ButtonType.Signal;
-			break;
-		case 3 :
-			buttonType = ButtonType.Train;
-			break;
-		case 4 :
-			buttonType = ButtonType.RemoveRail;
-			break;
-		case 5 :
-			buttonType = ButtonType.RemoveSwitchRail;
-			break;
-		case 6 :
-			buttonType = ButtonType.RemoveSignal;
-			break;
-		case 7 :
-			buttonType = ButtonType.RemoveTrain;
-			break;	
-		}
-		
-	}
+	
 	
 	
 	public void actionPerformed(ActionEvent e) {
@@ -61,7 +36,8 @@ public class ButtonListener implements ActionListener{
 					for(JRadioButton rb : radioButtons) {
 						rb.setVisible(false);
 					}
-					setButtonType(i);
+					heightBox.setVisible(false);
+					panel.setButtonType(i);
 					if(i == 1) {
 						radioButtons[0].setSelected(true);
 						radioButtons[1].setSelected(false);
@@ -71,14 +47,15 @@ public class ButtonListener implements ActionListener{
 						radioButtons[1].setVisible(true);
 						radioButtons[2].setVisible(true);
 						radioButtons[3].setVisible(true);
-						d = Direction.Left;
-						p = Direction.Up;
+						heightBox.setVisible(true);
+						panel.setDirectionLR(Direction.Left);
+						panel.setDirectionUD(Direction.Up);
 					}else if(i == 2) {
 						radioButtons[4].setSelected(true);
 						radioButtons[5].setSelected(false);
 						radioButtons[4].setVisible(true);
 						radioButtons[5].setVisible(true);
-						d = Direction.Left;
+						panel.setDirectionLR(Direction.Left);
 					}
 				}else {
 					buttons[i].setFont(EditorMenuPanel.normalFont);
@@ -91,27 +68,27 @@ public class ButtonListener implements ActionListener{
 			if (source == radioButtons[0]){
 				radioButtons[0].setSelected(true);
 				radioButtons[1].setSelected(false);
-				d = Direction.Left;
+				panel.setDirectionLR(Direction.Left);
 			}else if (source == radioButtons[1]){
 				radioButtons[0].setSelected(false);
 				radioButtons[1].setSelected(true);
-				d = Direction.Right;
+				panel.setDirectionLR(Direction.Right);
 			}else if (source == radioButtons[2]){
 				radioButtons[2].setSelected(true);
 				radioButtons[3].setSelected(false);
-				p = Direction.Up;
+				panel.setDirectionUD(Direction.Up);
 			}else if (source == radioButtons[3]){
 				radioButtons[2].setSelected(false);
 				radioButtons[3].setSelected(true);
-				p = Direction.Down;
+				panel.setDirectionUD(Direction.Down);
 			}else if (source == radioButtons[4]) {
 				radioButtons[4].setSelected(true);
 				radioButtons[5].setSelected(false);
-				d = Direction.Left;
+				panel.setDirectionLR(Direction.Left);
 			}else if (source == radioButtons[5]){
 				radioButtons[4].setSelected(false);
 				radioButtons[5].setSelected(true);
-				d = Direction.Right;
+				panel.setDirectionLR(Direction.Right);
 			}
 		}
 		

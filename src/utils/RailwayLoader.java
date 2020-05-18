@@ -47,7 +47,7 @@ public class RailwayLoader {
 		    	int start = Integer.parseInt(s[0]);
 		    	int end1 = Integer.parseInt(s[1]);
 		    	int end2 = Integer.parseInt(s[2]);
-		    	Direction d = s[3] == "L" ? Direction.Left : Direction.Right;
+		    	Direction d = s[3].equals("L") ? Direction.Left : Direction.Right;
 		    	SwitchRail r = new SwitchRail(start,end1, end2, d);
 		    	switchRailList.add(r);
 		    	line = reader.readLine();

@@ -33,4 +33,8 @@ public class MenuPanel extends JPanel{
 	
 	public void loaded() {}
 
+	public String getFilenameLoad() {
+		return "";
+	}
+
 }
