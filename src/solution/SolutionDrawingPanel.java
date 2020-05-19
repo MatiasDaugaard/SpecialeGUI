@@ -230,6 +230,15 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		switchRailsSolution.add(switchrailMap);
 	}
 
+	public void resetSolution() {
+		trainsSolution = new ArrayList<>();
+		signalsSolution = new ArrayList<>();
+		switchRailsSolution = new ArrayList<>();
+		counter = 0;
+		repaint();
+		
+	}
+
 
 
 }

@@ -154,7 +154,7 @@ public class RailwayLoader {
 		Pattern signalPattern = Pattern.compile("<signals>(.*)");
 		Pattern railPattern = Pattern.compile("<rails>(.*)");
 		Pattern endPattern = Pattern.compile("</>");
-		
+		drawingPanel.resetSolution();
 		try {
 		    reader = new BufferedReader(new FileReader(file));
 		    String line = reader.readLine();

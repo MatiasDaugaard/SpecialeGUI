@@ -96,6 +96,7 @@ public class SolutionMenuPanel extends MenuPanel{
         stopButton = new JButton("Stop");
         stopButton.setFont(normalFont);
         stopButton.setVisible(false);
+        stopButton.addActionListener(new StopButtonListener((SolutionDrawingPanel)frame.networkPanel));
         this.add(stopButton);
         
         restartButton = new JButton("Restart");
