@@ -26,12 +26,14 @@ public class EditorDrawingPanel extends DrawingPanel{
 	private Direction d = Direction.Left;
 	private Direction p = Direction.Up;
 	
-	public EditorDrawingPanel() {
-		
+	public EditorDrawingPanel(int h, int w) {
+		HEIGHT = h;
+		WIDTH = w;
 		drawingListener = new DrawingListener(this);
 		switchHeight = 1;
 		this.addMouseListener(drawingListener);
 		this.addKeyListener(drawingListener);
+		
 		
 		
 	}

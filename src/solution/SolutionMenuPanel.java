@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SpringLayout;
 
 import editor.LoadButtonListener;
+import utils.BackButtonListener;
 import utils.MenuPanel;
 
 
@@ -104,6 +105,12 @@ public class SolutionMenuPanel extends MenuPanel{
         this.add(restartButton);
         
         
+        JButton backButton = new JButton("Return to menu");
+        backButton.setFont(normalFont);
+        backButton.addActionListener(new BackButtonListener(frame));
+        this.add(backButton);
+        
+        
         
         
         menuLayout.putConstraint(SpringLayout.NORTH, menuLabel, 10,SpringLayout.NORTH, this);
@@ -131,7 +138,9 @@ public class SolutionMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.EAST,  restartButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  restartButton, 5,SpringLayout.WEST,  this);
         
-        
+        menuLayout.putConstraint(SpringLayout.SOUTH, backButton, -10,SpringLayout.SOUTH, this);
+        menuLayout.putConstraint(SpringLayout.EAST,  backButton,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  backButton, 5,SpringLayout.WEST,  this);
         
 		
 	}

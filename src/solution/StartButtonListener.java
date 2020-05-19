@@ -14,7 +14,7 @@ public class StartButtonListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//TODO : Should run automatic 
+		
 		panel.start();
 			
 		

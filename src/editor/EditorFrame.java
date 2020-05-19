@@ -9,14 +9,14 @@ public class EditorFrame extends JFrame{
 	
 	public EditorDrawingPanel drawingPanel;
 	
-	public EditorFrame() {
+	public EditorFrame(int h, int w) {
 		
 		super("Railway Network GUI");  
 		Container contentPane = this.getContentPane();
         SpringLayout layout = new SpringLayout();
         contentPane.setLayout(layout);
         
-        drawingPanel = new EditorDrawingPanel();
+        drawingPanel = new EditorDrawingPanel(h,w);
         EditorMenuPanel menuPanel = new EditorMenuPanel(this); 
         
         contentPane.add(menuPanel);

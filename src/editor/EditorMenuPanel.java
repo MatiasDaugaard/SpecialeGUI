@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import solution.SolutionListListener;
+import utils.BackButtonListener;
 import utils.MenuPanel;
 
 public class EditorMenuPanel extends MenuPanel{
@@ -162,7 +163,7 @@ public class EditorMenuPanel extends MenuPanel{
         this.add(saveButton);
         
         JButton backButton = new JButton();
-        backButton.setText("Back");
+        backButton.setText("Return to menu");
         backButton.setFont(normalFont);
         backButton.addActionListener(new BackButtonListener(frame));
         this.add(backButton);
@@ -287,7 +288,7 @@ public class EditorMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.EAST,  saveButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  saveButton, 5,SpringLayout.WEST,  this);
       
-        //Layout of save button
+        //Layout of back button
         menuLayout.putConstraint(SpringLayout.SOUTH, backButton, -10,SpringLayout.SOUTH, this);
         menuLayout.putConstraint(SpringLayout.EAST,  backButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  backButton, 5,SpringLayout.WEST,  this);

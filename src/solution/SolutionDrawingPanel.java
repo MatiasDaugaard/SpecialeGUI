@@ -165,10 +165,12 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		timer.start();
 		
 		
+		
 	}
 	
 	public void stop() {
 		timer.stop();
+		
 	}
 	
 	private class TrainListener implements ActionListener{

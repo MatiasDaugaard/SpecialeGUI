@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel{
 	
-	public static int WIDTH = 45;
-	public static int HEIGHT = 20;
+	protected int WIDTH = 100;
+	protected int HEIGHT = 100;
 	
 	protected int[][] rails = new int[HEIGHT][WIDTH];
 	protected int[][] signals = new int[HEIGHT][WIDTH];

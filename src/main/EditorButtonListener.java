@@ -2,6 +2,8 @@ package main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import editor.EditorFrame;
 
 public class EditorButtonListener implements ActionListener{
@@ -14,7 +16,26 @@ public class EditorButtonListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		new EditorFrame();
+		int height = 0;
+		int width = 0;
+		
+		while(height <= 4) {
+			try {
+				height = Integer.parseInt(JOptionPane.showInputDialog("Height of railway (minimum 5): "));
+			}catch(Exception ex){
+				JOptionPane.showMessageDialog(frame,"Please enter valid number");  
+			}
+		}
+		
+		while(width <= 4) {
+			try {
+				width = Integer.parseInt(JOptionPane.showInputDialog("Width of railway (minimum 5): "));
+			}catch(Exception ex){
+				JOptionPane.showMessageDialog(frame,"Please enter valid number");  
+			}
+		}
+
+		new EditorFrame(height,width);
 		frame.dispose();
 		
 	}
