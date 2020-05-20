@@ -24,6 +24,10 @@ public class SolutionMenuPanel extends MenuPanel{
 	private JButton nextButton;
 	private JButton prevButton;
 	
+	private JLabel solutionLength;
+	private JLabel generatedStates;
+	private JLabel solutionTime;
+	
 	public SolutionMenuPanel(SolutionFrame frame) {
 		
 		this.setBackground(Color.LIGHT_GRAY.brighter());
@@ -89,6 +93,21 @@ public class SolutionMenuPanel extends MenuPanel{
         loadButton.addActionListener(loadListener);
         this.add(loadButton);
         
+        solutionLength = new JLabel();
+        solutionLength.setFont(normalFont);
+        solutionLength.setVisible(false);
+        this.add(solutionLength);
+        
+        generatedStates = new JLabel();
+        generatedStates.setFont(normalFont);
+        generatedStates.setVisible(false);
+        this.add(generatedStates);
+        
+        solutionTime = new JLabel();
+        solutionTime.setFont(normalFont);
+        solutionTime.setVisible(false);
+        this.add(solutionTime);
+        
         startButton = new JButton("Start");
         startButton.setFont(normalFont);
         startButton.setVisible(false);
@@ -107,17 +126,25 @@ public class SolutionMenuPanel extends MenuPanel{
         restartButton.addActionListener(new RestartButtonListener((SolutionDrawingPanel)frame.networkPanel));
         this.add(restartButton);
         
+        JLabel borderLabel = new JLabel("___________________________");
+        borderLabel.setHorizontalAlignment(JLabel.CENTER);
+        borderLabel.setFont(normalFont);
+        this.add(borderLabel);
+        
         nextButton = new JButton("Next state");
         nextButton.setFont(normalFont);
         nextButton.setVisible(false);
         nextButton.addActionListener(new NextButtonListener((SolutionDrawingPanel)frame.networkPanel));
         this.add(nextButton);
         
-        prevButton = new JButton("Previos state");
+        prevButton = new JButton("Previous state");
         prevButton.setFont(normalFont);
         prevButton.setVisible(false);
         prevButton.addActionListener(new PrevButtonListener((SolutionDrawingPanel)frame.networkPanel));
         this.add(prevButton);
+        
+        
+        
         
         
         JButton backButton = new JButton("Return to menu");
@@ -141,7 +168,19 @@ public class SolutionMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.EAST,  loadButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  loadButton, 5,SpringLayout.WEST,  this);
         
-        menuLayout.putConstraint(SpringLayout.NORTH, startButton, 50,SpringLayout.SOUTH, loadButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, solutionLength, 50,SpringLayout.SOUTH, loadButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  solutionLength,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  solutionLength, 5,SpringLayout.WEST,  this);
+        
+        menuLayout.putConstraint(SpringLayout.NORTH, generatedStates, 50,SpringLayout.SOUTH, solutionLength);
+        menuLayout.putConstraint(SpringLayout.EAST,  generatedStates,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  generatedStates, 5,SpringLayout.WEST,  this);
+        
+        menuLayout.putConstraint(SpringLayout.NORTH, solutionTime, 50,SpringLayout.SOUTH, generatedStates);
+        menuLayout.putConstraint(SpringLayout.EAST,  solutionTime,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  solutionTime, 5,SpringLayout.WEST,  this);
+        
+        menuLayout.putConstraint(SpringLayout.NORTH, startButton, 50,SpringLayout.SOUTH, solutionTime);
         menuLayout.putConstraint(SpringLayout.EAST,  startButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  startButton, 5,SpringLayout.WEST,  this);
         
@@ -153,7 +192,11 @@ public class SolutionMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.EAST,  restartButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  restartButton, 5,SpringLayout.WEST,  this);
         
-        menuLayout.putConstraint(SpringLayout.NORTH, nextButton, 20,SpringLayout.SOUTH, restartButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, borderLabel, 20,SpringLayout.SOUTH, restartButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  borderLabel,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  borderLabel, 5,SpringLayout.WEST,  this);
+        
+        menuLayout.putConstraint(SpringLayout.NORTH, nextButton, 20,SpringLayout.SOUTH, borderLabel);
         menuLayout.putConstraint(SpringLayout.EAST,  nextButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  nextButton, 5,SpringLayout.WEST,  this);
         
@@ -168,11 +211,18 @@ public class SolutionMenuPanel extends MenuPanel{
 		
 	}
 	
-	public void loaded() {
+	public void loaded(int length, int generated, double time) {
 		startButton.setVisible(true);
 		stopButton.setVisible(true);
 		restartButton.setVisible(true);
 		nextButton.setVisible(true);
 		prevButton.setVisible(true);
+		
+		solutionLength.setVisible(true);
+		solutionLength.setText("Solution length : " + Integer.toString(length));
+		generatedStates.setVisible(true);
+		generatedStates.setText("Generated states : " + Integer.toString(generated));
+		solutionTime.setVisible(true);
+		solutionTime.setText("Time spend : " + Double.toString(time) + "ms");
 	}
 }

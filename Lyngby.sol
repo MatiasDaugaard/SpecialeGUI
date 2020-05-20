@@ -269,4 +269,7 @@
 <signals>[F;F;F;F;F;F;F;F;F;F;F;F;F;T;F;F;F;F;F;F;F;F;F]
 <rails>[T;F;F;T;T;F]
 </>
+<states> 54
+<generated> 130
+<time> 165.4426
 </solution>

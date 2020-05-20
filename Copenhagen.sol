@@ -1224,4 +1224,7 @@
 <signals>[F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;T;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F;F]
 <rails>[T;F;F;T;T;T;T;T;T;T;T;F;T;T;T;F;F;T;F;T;T;T;T;T;T]
 </>
+<states> 245
+<generated> 330
+<time> 469.5863
 </solution>

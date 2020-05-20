@@ -32,6 +32,8 @@ public class MenuPanel extends JPanel{
 	}
 	
 	public void loaded() {}
+	
+	public void loaded(int length, int generated, double time) {}
 
 	public String getFilenameLoad() {
 		return "";

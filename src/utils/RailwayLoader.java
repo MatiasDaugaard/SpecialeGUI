@@ -145,15 +145,17 @@ public class RailwayLoader {
 		
 	}
 	
-	public void loadSolution(String title, SolutionDrawingPanel drawingPanel) {
+	public void loadSolution(String title, SolutionDrawingPanel drawingPanel, MenuPanel menuPanel) {
 		
 		File file = new File(title + ".sol");
 		BufferedReader reader = null;
 		
+		int length = 1;
+		int generated = 1;
+		double time = 1.0;
+		
 		Pattern trainPattern = Pattern.compile("<trains>(.*)");
-		Pattern signalPattern = Pattern.compile("<signals>(.*)");
-		Pattern railPattern = Pattern.compile("<rails>(.*)");
-		Pattern endPattern = Pattern.compile("</>");
+		Pattern statsPattern = Pattern.compile("<states>(.*)");
 		drawingPanel.resetSolution();
 		try {
 		    reader = new BufferedReader(new FileReader(file));
@@ -161,28 +163,13 @@ public class RailwayLoader {
 		    while(line != null) {
 		    	Matcher tMatcher = trainPattern.matcher(line);
 		    	if(tMatcher.find()) {
-		    		String trains = "";
-		    		Matcher sMatcher = signalPattern.matcher(line);
-		    		while(!sMatcher.find()) {
-		    			trains += line;
-		    			line = reader.readLine();
-		    			sMatcher = signalPattern.matcher(line);
-		    		}
+		    		String trains = line;
+	    			line = reader.readLine();
+	    			String signals = line;
+	    			line = reader.readLine();
+	    			String rails = line;
+	    			line = reader.readLine();
 		    		
-		    		String signals = "";
-		    		Matcher rMatcher = railPattern.matcher(line);
-		    		while(!rMatcher.find()) {
-		    			signals += line;
-		    			line = reader.readLine();
-		    			rMatcher = railPattern.matcher(line);
-		    		}
-		    		String rails = "";
-		    		Matcher endMatcher = endPattern.matcher(line);
-		    		while(!endMatcher.find()) {
-		    			rails += line;
-		    			line = reader.readLine();
-		    			endMatcher = endPattern.matcher(line);
-		    		}
 		    		trains = trains.substring(9,trains.length()-1).replaceAll("\\s","");
 		    		signals = signals.substring(10,signals.length()-1).replaceAll("\\s","");
 		    		rails = rails.substring(8,rails.length()-1).replaceAll("\\s","");
@@ -216,10 +203,30 @@ public class RailwayLoader {
 		    		drawingPanel.addState(signalList, trainList, railList);
 
 		    	}else {
-		    		line = reader.readLine();
+		    		Matcher statsMatcher = statsPattern.matcher(line);
+		    		if(statsMatcher.find()) {
+		    			String states = line;
+		    			line = reader.readLine();
+		    			String genStates = line;
+		    			line = reader.readLine();
+		    			String solTime = line;
+		    			line = reader.readLine();
+			    		
+			    		states = states.substring(9).replaceAll("\\s","");
+			    		genStates = genStates.substring(12).replaceAll("\\s","");
+			    		solTime = solTime.substring(7).replaceAll("\\s","");
+			    		
+			    		length = Integer.parseInt(states);
+			    		generated = Integer.parseInt(genStates);
+			    		time = Double.parseDouble(solTime);
+		    		}else {
+		    			line = reader.readLine();
+		    		}
+		    		
 		    	}
 		    	
 		    }
+		    menuPanel.loaded(length, generated, time);
 		    
 		    reader.close();
 		} catch (Exception ex) {

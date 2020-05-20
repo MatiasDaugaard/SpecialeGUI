@@ -34,8 +34,8 @@ public class LoadButtonListener implements ActionListener{
 		if(loader.loadRailway(drawingPanel, title, menuPanel)) {
 			if(drawingPanel instanceof SolutionDrawingPanel) {
 				
-				loader.loadSolution(title, (SolutionDrawingPanel)drawingPanel);
-				System.out.println("Hello from loadbutton listener");
+				loader.loadSolution(title, (SolutionDrawingPanel)drawingPanel, menuPanel);
+				
 			}
 			menuPanel.setLabelMessage("Success");
 		}else {
