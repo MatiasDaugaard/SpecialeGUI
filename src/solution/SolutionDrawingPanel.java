@@ -173,25 +173,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		
 	}
 	
-	private class TrainListener implements ActionListener{
-
-		private SolutionDrawingPanel panel;
-		
-		public TrainListener(SolutionDrawingPanel panel) {
-			this.panel = panel;
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(counter < trainsSolution.size() -1) {
-            	panel.counter++;
-            	panel.repaint();
-            }else {
-            	stop();
-            }
-			
-		}
-		
-	}
+	
 
 	public void restart() {
 		stop();
@@ -238,7 +220,46 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		repaint();
 		
 	}
+	
+	public void next() {
+		stop();
+		if(counter < trainsSolution.size() -1) {
+			counter++;
+			repaint();
+        }
+		
+		
+	}
 
+	public void prev() {
+		stop();
+		if(counter > 0) {
+			counter--;
+			repaint();
+        }
+		
+	}
+
+	
+	private class TrainListener implements ActionListener{
+
+		private SolutionDrawingPanel panel;
+		
+		public TrainListener(SolutionDrawingPanel panel) {
+			this.panel = panel;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(counter < trainsSolution.size() -1) {
+            	panel.counter++;
+            	panel.repaint();
+            }else {
+            	stop();
+            }
+			
+		}
+		
+	}
 
 
 }

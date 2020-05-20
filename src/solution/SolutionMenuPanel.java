@@ -21,6 +21,8 @@ public class SolutionMenuPanel extends MenuPanel{
 	private JButton startButton;
 	private JButton stopButton;
 	private JButton restartButton;
+	private JButton nextButton;
+	private JButton prevButton;
 	
 	public SolutionMenuPanel(SolutionFrame frame) {
 		
@@ -105,6 +107,18 @@ public class SolutionMenuPanel extends MenuPanel{
         restartButton.addActionListener(new RestartButtonListener((SolutionDrawingPanel)frame.networkPanel));
         this.add(restartButton);
         
+        nextButton = new JButton("Next state");
+        nextButton.setFont(normalFont);
+        nextButton.setVisible(false);
+        nextButton.addActionListener(new NextButtonListener((SolutionDrawingPanel)frame.networkPanel));
+        this.add(nextButton);
+        
+        prevButton = new JButton("Previos state");
+        prevButton.setFont(normalFont);
+        prevButton.setVisible(false);
+        prevButton.addActionListener(new PrevButtonListener((SolutionDrawingPanel)frame.networkPanel));
+        this.add(prevButton);
+        
         
         JButton backButton = new JButton("Return to menu");
         backButton.setFont(normalFont);
@@ -139,6 +153,14 @@ public class SolutionMenuPanel extends MenuPanel{
         menuLayout.putConstraint(SpringLayout.EAST,  restartButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  restartButton, 5,SpringLayout.WEST,  this);
         
+        menuLayout.putConstraint(SpringLayout.NORTH, nextButton, 20,SpringLayout.SOUTH, restartButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  nextButton,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  nextButton, 5,SpringLayout.WEST,  this);
+        
+        menuLayout.putConstraint(SpringLayout.NORTH, prevButton, 20,SpringLayout.SOUTH, nextButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  prevButton,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  prevButton, 5,SpringLayout.WEST,  this);
+        
         menuLayout.putConstraint(SpringLayout.SOUTH, backButton, -10,SpringLayout.SOUTH, this);
         menuLayout.putConstraint(SpringLayout.EAST,  backButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  backButton, 5,SpringLayout.WEST,  this);
@@ -150,5 +172,7 @@ public class SolutionMenuPanel extends MenuPanel{
 		startButton.setVisible(true);
 		stopButton.setVisible(true);
 		restartButton.setVisible(true);
+		nextButton.setVisible(true);
+		prevButton.setVisible(true);
 	}
 }
