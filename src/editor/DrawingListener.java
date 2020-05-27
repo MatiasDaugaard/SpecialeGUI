@@ -24,8 +24,8 @@ public class DrawingListener implements MouseListener,KeyListener{
 		int x = e.getX();
 		int y = e.getY();
 	    
-	    int j = (x-5 + EditorDrawingPanel.xOffset/2)/EditorDrawingPanel.xOffset;
-	    int i = (y-5 + EditorDrawingPanel.yOffset/2)/EditorDrawingPanel.yOffset;
+	    int j = (int) ((x-5 + EditorDrawingPanel.xOffset/2)/EditorDrawingPanel.xOffset);
+	    int i = (int) ((y-5 + EditorDrawingPanel.yOffset/2)/EditorDrawingPanel.yOffset);
 	    if(lastI == -1) {
 	    	if (panel.getButtonType() == ButtonType.Signal) {
     	    	panel.addSignal(i, j);

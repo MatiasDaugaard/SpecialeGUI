@@ -56,18 +56,18 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    for(int i = 0; i < HEIGHT; i++) {
 	    	for(int j = 0; j < WIDTH; j++) {
 	    		if(signals[i][j] == 1) {
-	    			int x = (5+j*xOffset)-5;
-		    		int y = (5+i*yOffset)-16;
+	    			int x = (int)(5+j*xOffset)-5;
+		    		int y = (int)(5+i*yOffset)-16;
 		    		g.fillRect(x, y, width, height);
 	    		}else if(signals[i][j] == 2) {
-	    			int x = (5+j*xOffset)+6;
-		    		int y = (5+i*yOffset)-16;
+	    			int x = (int)(5+j*xOffset)+6;
+		    		int y = (int)(5+i*yOffset)-16;
 		    		g.fillRect(x, y, width, height);
 	    		}else if(signals[i][j] == 3) {
-	    			int x = (5+j*xOffset)+6;
-		    		int y = (5+i*yOffset)-16;
+	    			int x = (int)(5+j*xOffset)+6;
+		    		int y = (int)(5+i*yOffset)-16;
 		    		g.fillRect(x, y, width, height);
-		    		x = (5+j*xOffset)-5;
+		    		x = (int)(5+j*xOffset)-5;
 		    		g.fillRect(x, y, width, height);
 	    		}
 	    	}
@@ -81,17 +81,17 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    	Signal sig = entry.getKey();
 	    	int i = sig.getLocation()/WIDTH;
 	    	int j = sig.getLocation()%WIDTH;
-	    	int x = (5+j*xOffset)-5;
-    		int y = (5+i*yOffset)-16;
+	    	int x = (int)(5+j*xOffset)-5;
+    		int y = (int)(5+i*yOffset)-16;
     		System.out.println(sig.getLocation());
 	    	if(entry.getValue()) {
 	    		g.setColor(Color.green);
 	    	}else {
 	    		g.setColor(Color.red);
-	    		y = (5+i*yOffset)-11;
+	    		y = (int)(5+i*yOffset)-11;
 	    	}
 	    	if(sig.getDirection() == Direction.Right) {
-	    		x = (5+j*xOffset)+6;
+	    		x = (int)(5+j*xOffset)+6;
 	    	}
 	    	g.fillArc(x+1, y+1, 3, 3, 0, 360);
 	    	
@@ -114,12 +114,12 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    	int end2I = Math.floorDiv(switchRail.getEnd2(), WIDTH);
 	    	int end2J = switchRail.getEnd2()%WIDTH;
 	    	
-	    	int startX = (5+startJ*xOffset)+3;
-    		int startY = (5+startI*yOffset)+3;
-    		int end1X = (5+end1J*xOffset)+3;
-    		int end1Y = (5+end1I*yOffset)+3;
-    		int end2X = (5+end2J*xOffset)+3;
-    		int end2Y = (5+end2I*yOffset)+3;
+	    	int startX = (int)(5+startJ*xOffset)+3;
+    		int startY = (int)(5+startI*yOffset)+3;
+    		int end1X = (int)(5+end1J*xOffset)+3;
+    		int end1Y = (int)(5+end1I*yOffset)+3;
+    		int end2X = (int)(5+end2J*xOffset)+3;
+    		int end2Y = (int)(5+end2I*yOffset)+3;
     		g.setColor(Color.red);
     		if(entry.getValue()) {
     			g.drawLine(startX, startY, end1X, end1Y);
@@ -148,8 +148,8 @@ public class SolutionDrawingPanel extends DrawingPanel{
 			int loc = entry.getValue();
 			int i =  loc/WIDTH;
 	    	int j = loc%WIDTH;
-	    	int x = (5+j*xOffset);
-    		int y = (5+i*yOffset)-5;
+	    	int x = (int)(5+j*xOffset);
+    		int y = (int)(5+i*yOffset)-5;
     		if(train.getDirection() == Direction.Right) {
     			x -= 15;
     		}else {

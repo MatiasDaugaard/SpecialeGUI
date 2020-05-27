@@ -379,7 +379,6 @@ public class EditorDrawingPanel extends DrawingPanel{
 
 	public ButtonType getButtonType() {
 		return buttonType;
-	}
-	
+	}	
 
 }

@@ -16,12 +16,14 @@ import javax.swing.SpringLayout;
 
 import solution.SolutionListListener;
 import utils.BackButtonListener;
+import utils.Direction;
 import utils.MenuPanel;
 
 public class EditorMenuPanel extends MenuPanel{
 	
 	
 	private String filenameLoad;
+	private Direction sizeDirection = Direction.Right;
 
 	public EditorMenuPanel(EditorFrame frame) {
 		
@@ -33,6 +35,8 @@ public class EditorMenuPanel extends MenuPanel{
         JLabel menuLabel = new JLabel("Create or edit railway");
         menuLabel.setFont(bigFont);
         this.add(menuLabel);
+        
+        //For editing railway
         
         JButton railButton = new JButton();
         railButton.setText("Add rail(s)");
@@ -120,6 +124,78 @@ public class EditorMenuPanel extends MenuPanel{
         clearButton.setFont(normalFont);
         this.add(clearButton);
         
+        JLabel borderLabel1 = new JLabel("___________________________");
+        borderLabel1.setHorizontalAlignment(JLabel.CENTER);
+        borderLabel1.setFont(normalFont);
+        this.add(borderLabel1);
+        
+        JButton[] buttons = {railButton,switchRailButton,signalButton,trainButton,removeRailButton, removeSwitchRailButton,removeSignalButton,removeTrainButton};
+        JRadioButton[] radioButtons = {leftSwitchButton,rightSwitchButton,upSwitchButton,downSwitchButton,leftButton,rightButton};
+        ButtonListener buttonListener = new ButtonListener(buttons,radioButtons,heightBox,frame.drawingPanel);
+        for(JRadioButton b : radioButtons) {
+        	b.addActionListener(buttonListener);
+        	b.setVisible(false);
+        }
+        for(JButton b : buttons) {
+        	b.addActionListener(buttonListener);
+        }
+        ClearButtonListener clearListener = new ClearButtonListener(frame.drawingPanel);
+        clearButton.addActionListener(clearListener);
+        
+        
+        
+        //For changing grid size
+        
+        JButton increaseButton = new JButton();
+        increaseButton.setText("Increase");
+        increaseButton.setFont(normalFont);
+        increaseButton.addActionListener(new IncreaseButtonListener(this, frame.drawingPanel));
+        this.add(increaseButton);
+        
+        JButton decreaseButton = new JButton();
+        decreaseButton.setText("Decrease");
+        decreaseButton.setFont(normalFont);
+        decreaseButton.addActionListener(new DecreaseButtonListener(this, frame.drawingPanel));
+        this.add(decreaseButton);
+        
+        
+        
+        JRadioButton leftSizeButton = new JRadioButton();
+        leftSizeButton.setText("Left");
+        leftSizeButton.setFont(normalFont);
+        this.add(leftSizeButton);
+        
+        JRadioButton rightSizeButton = new JRadioButton();
+        rightSizeButton.setText("Right");
+        rightSizeButton.setFont(normalFont);
+        rightSizeButton.setSelected(true);
+        this.add(rightSizeButton);
+        
+        JRadioButton upSizeButton = new JRadioButton();
+        upSizeButton.setText("Up");
+        upSizeButton.setFont(normalFont);
+        this.add(upSizeButton);
+        
+        JRadioButton downSizeButton = new JRadioButton();
+        downSizeButton.setText("Down");
+        downSizeButton.setFont(normalFont);
+        this.add(downSizeButton);
+        
+        JRadioButton[] sizeButtons = {leftSizeButton,rightSizeButton,upSizeButton,downSizeButton};
+        
+        GridSizeButtonListener gridSizeListener = new GridSizeButtonListener(this, sizeButtons);
+        for(JRadioButton rb : sizeButtons) {
+        	rb.addActionListener(gridSizeListener);
+        }
+        
+        JLabel borderLabel2 = new JLabel("___________________________");
+        borderLabel2.setHorizontalAlignment(JLabel.CENTER);
+        borderLabel2.setFont(normalFont);
+        this.add(borderLabel2);
+        
+        
+        //For loading and saving railways
+        
         loadLabel = new JLabel();
         loadLabel.setFont(normalFont);
         this.add(loadLabel);
@@ -170,18 +246,7 @@ public class EditorMenuPanel extends MenuPanel{
         
         
         
-        JButton[] buttons = {railButton,switchRailButton,signalButton,trainButton,removeRailButton, removeSwitchRailButton,removeSignalButton,removeTrainButton};
-        JRadioButton[] radioButtons = {leftSwitchButton,rightSwitchButton,upSwitchButton,downSwitchButton,leftButton,rightButton};
-        ButtonListener buttonListener = new ButtonListener(buttons,radioButtons,heightBox,frame.drawingPanel);
-        for(JRadioButton b : radioButtons) {
-        	b.addActionListener(buttonListener);
-        	b.setVisible(false);
-        }
-        for(JButton b : buttons) {
-        	b.addActionListener(buttonListener);
-        }
-        ClearButtonListener clearListener = new ClearButtonListener(frame.drawingPanel);
-        clearButton.addActionListener(clearListener);
+        
         SaveButtonListener saveListener = new SaveButtonListener(this, frame.drawingPanel);
         saveButton.addActionListener(saveListener);
         LoadButtonListener loadListener = new LoadButtonListener(this, frame.drawingPanel);
@@ -191,105 +256,133 @@ public class EditorMenuPanel extends MenuPanel{
         
         //Make menu layout look nice
         // Layout of label
-        menuLayout.putConstraint(SpringLayout.NORTH, menuLabel, 10,SpringLayout.NORTH, this);
+        menuLayout.putConstraint(SpringLayout.NORTH, menuLabel, 6,SpringLayout.NORTH, this);
         menuLayout.putConstraint(SpringLayout.EAST,  menuLabel,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  menuLabel, 5,SpringLayout.WEST,  this);
         
         //Layout of rail button
-        menuLayout.putConstraint(SpringLayout.NORTH, railButton, 10,SpringLayout.SOUTH, menuLabel);
+        menuLayout.putConstraint(SpringLayout.NORTH, railButton, 6,SpringLayout.SOUTH, menuLabel);
         menuLayout.putConstraint(SpringLayout.EAST,  railButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  railButton, 5,SpringLayout.WEST, this);
         
         //Layout of switchrail button
-        menuLayout.putConstraint(SpringLayout.NORTH, switchRailButton, 10,SpringLayout.SOUTH, railButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, switchRailButton, 6,SpringLayout.SOUTH, railButton);
         menuLayout.putConstraint(SpringLayout.EAST,  switchRailButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  switchRailButton, 5,SpringLayout.WEST, this);
         
         //Layout of left and right switch button
-        menuLayout.putConstraint(SpringLayout.NORTH, leftSwitchButton, 10,SpringLayout.SOUTH, switchRailButton);
-        menuLayout.putConstraint(SpringLayout.NORTH, rightSwitchButton, 10,SpringLayout.SOUTH, switchRailButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, leftSwitchButton, 6,SpringLayout.SOUTH, switchRailButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, rightSwitchButton, 6,SpringLayout.SOUTH, switchRailButton);
         menuLayout.putConstraint(SpringLayout.EAST,  rightSwitchButton,-50,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  leftSwitchButton, 50,SpringLayout.WEST,  this);
         
         //Layout of up and down switch button
-        menuLayout.putConstraint(SpringLayout.NORTH, upSwitchButton, 10,SpringLayout.SOUTH, leftSwitchButton);
-        menuLayout.putConstraint(SpringLayout.NORTH, downSwitchButton, 10,SpringLayout.SOUTH, rightSwitchButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, upSwitchButton, 6,SpringLayout.SOUTH, leftSwitchButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, downSwitchButton, 6,SpringLayout.SOUTH, rightSwitchButton);
         menuLayout.putConstraint(SpringLayout.EAST,  downSwitchButton,-50,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  upSwitchButton, 50,SpringLayout.WEST,  this);
         
         //Layout of heightBox
-        menuLayout.putConstraint(SpringLayout.NORTH, heightBox, 10,SpringLayout.SOUTH, upSwitchButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, heightBox, 6,SpringLayout.SOUTH, upSwitchButton);
         menuLayout.putConstraint(SpringLayout.EAST,  heightBox,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  heightBox, 5,SpringLayout.WEST, this);
         
         //Layout of signal button
-        menuLayout.putConstraint(SpringLayout.NORTH, signalButton, 10,SpringLayout.SOUTH, heightBox);
+        menuLayout.putConstraint(SpringLayout.NORTH, signalButton, 6,SpringLayout.SOUTH, heightBox);
         menuLayout.putConstraint(SpringLayout.EAST,  signalButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  signalButton, 5,SpringLayout.WEST,  this);
         
         //Layout of signal left and right
-        menuLayout.putConstraint(SpringLayout.NORTH, leftButton, 10,SpringLayout.SOUTH, signalButton);
-        menuLayout.putConstraint(SpringLayout.NORTH, rightButton, 10,SpringLayout.SOUTH, signalButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, leftButton, 6,SpringLayout.SOUTH, signalButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, rightButton, 6,SpringLayout.SOUTH, signalButton);
         menuLayout.putConstraint(SpringLayout.EAST,  rightButton,-50,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  leftButton, 50,SpringLayout.WEST,  this);
         
         //Layout of train button
-        menuLayout.putConstraint(SpringLayout.NORTH, trainButton, 10,SpringLayout.SOUTH, leftButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, trainButton, 6,SpringLayout.SOUTH, leftButton);
         menuLayout.putConstraint(SpringLayout.EAST,  trainButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  trainButton, 5,SpringLayout.WEST,  this);
         
         //Layout of remove rail button
-        menuLayout.putConstraint(SpringLayout.NORTH, removeRailButton, 10,SpringLayout.SOUTH, trainButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, removeRailButton, 6,SpringLayout.SOUTH, trainButton);
         menuLayout.putConstraint(SpringLayout.EAST,  removeRailButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  removeRailButton, 5,SpringLayout.WEST, this);
         
         //Layout of remove rail button
-        menuLayout.putConstraint(SpringLayout.NORTH, removeSwitchRailButton, 10,SpringLayout.SOUTH, removeRailButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, removeSwitchRailButton, 6,SpringLayout.SOUTH, removeRailButton);
         menuLayout.putConstraint(SpringLayout.EAST,  removeSwitchRailButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  removeSwitchRailButton, 5,SpringLayout.WEST, this);
         
         //Layout of remove signal button
-        menuLayout.putConstraint(SpringLayout.NORTH, removeSignalButton, 10,SpringLayout.SOUTH, removeSwitchRailButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, removeSignalButton, 6,SpringLayout.SOUTH, removeSwitchRailButton);
         menuLayout.putConstraint(SpringLayout.EAST,  removeSignalButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  removeSignalButton, 5,SpringLayout.WEST,  this);
         
         //Layout of remove train button
-        menuLayout.putConstraint(SpringLayout.NORTH, removeTrainButton, 10,SpringLayout.SOUTH, removeSignalButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, removeTrainButton, 6,SpringLayout.SOUTH, removeSignalButton);
         menuLayout.putConstraint(SpringLayout.EAST,  removeTrainButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  removeTrainButton, 5,SpringLayout.WEST,  this);
         
         //Layout of clear button
-        menuLayout.putConstraint(SpringLayout.NORTH, clearButton, 10,SpringLayout.SOUTH, removeTrainButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, clearButton, 6,SpringLayout.SOUTH, removeTrainButton);
         menuLayout.putConstraint(SpringLayout.EAST,  clearButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  clearButton, 5,SpringLayout.WEST,  this);
         
+        //Layout of border label 1
+        menuLayout.putConstraint(SpringLayout.NORTH, borderLabel1, 18,SpringLayout.SOUTH, removeTrainButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  borderLabel1,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  borderLabel1, 5,SpringLayout.WEST,  this);
+        
+        //Layout of increase and decrease buttons
+        menuLayout.putConstraint(SpringLayout.NORTH, increaseButton, 6,SpringLayout.SOUTH, borderLabel1);
+        menuLayout.putConstraint(SpringLayout.EAST,  increaseButton,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.NORTH, decreaseButton, 6,SpringLayout.SOUTH, borderLabel1);
+        menuLayout.putConstraint(SpringLayout.WEST,  decreaseButton, 5,SpringLayout.WEST,  this);
+        
+        //Layout of left and right size button
+        menuLayout.putConstraint(SpringLayout.NORTH, leftSizeButton, 6,SpringLayout.SOUTH, increaseButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, rightSizeButton, 6,SpringLayout.SOUTH, increaseButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  rightSizeButton,-50,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  leftSizeButton, 50,SpringLayout.WEST,  this);
+        
+        //Layout of up and down size button
+        menuLayout.putConstraint(SpringLayout.NORTH, upSizeButton, 6,SpringLayout.SOUTH, leftSizeButton);
+        menuLayout.putConstraint(SpringLayout.NORTH, downSizeButton, 6,SpringLayout.SOUTH, rightSizeButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  downSizeButton,-50,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  upSizeButton, 50,SpringLayout.WEST,  this);
+        
+        //Layout of border label 2
+        menuLayout.putConstraint(SpringLayout.NORTH, borderLabel2, 18,SpringLayout.SOUTH, leftSizeButton);
+        menuLayout.putConstraint(SpringLayout.EAST,  borderLabel2,-5,SpringLayout.EAST,  this);
+        menuLayout.putConstraint(SpringLayout.WEST,  borderLabel2, 5,SpringLayout.WEST,  this);
+        
         //Layout of save load label
-        menuLayout.putConstraint(SpringLayout.SOUTH, loadLabel, -10,SpringLayout.NORTH, fileBox);
+        menuLayout.putConstraint(SpringLayout.SOUTH, loadLabel, -6,SpringLayout.NORTH, fileBox);
         menuLayout.putConstraint(SpringLayout.EAST,  loadLabel,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  loadLabel, 5,SpringLayout.WEST,  this);
         
-      //Layout of save load label
-        menuLayout.putConstraint(SpringLayout.SOUTH, fileBox, -10,SpringLayout.NORTH, loadButton);
+        //Layout of save load label
+        menuLayout.putConstraint(SpringLayout.SOUTH, fileBox, -6,SpringLayout.NORTH, loadButton);
         menuLayout.putConstraint(SpringLayout.EAST,  fileBox,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  fileBox, 5,SpringLayout.WEST,  this);
         
         //Layout of load button
-        menuLayout.putConstraint(SpringLayout.SOUTH, loadButton, -10,SpringLayout.NORTH, filenameField);
+        menuLayout.putConstraint(SpringLayout.SOUTH, loadButton, -6,SpringLayout.NORTH, filenameField);
         menuLayout.putConstraint(SpringLayout.EAST,  loadButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  loadButton, 5,SpringLayout.WEST,  this);
         
         //Layout of textfield
-        menuLayout.putConstraint(SpringLayout.SOUTH, filenameField, -10,SpringLayout.NORTH, saveButton);
+        menuLayout.putConstraint(SpringLayout.SOUTH, filenameField, -6,SpringLayout.NORTH, saveButton);
         menuLayout.putConstraint(SpringLayout.EAST,  filenameField,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  filenameField, 5,SpringLayout.WEST,  this);
         
         //Layout of save button
-        menuLayout.putConstraint(SpringLayout.SOUTH, saveButton, -10,SpringLayout.NORTH, backButton);
+        menuLayout.putConstraint(SpringLayout.SOUTH, saveButton, -6,SpringLayout.NORTH, backButton);
         menuLayout.putConstraint(SpringLayout.EAST,  saveButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  saveButton, 5,SpringLayout.WEST,  this);
       
         //Layout of back button
-        menuLayout.putConstraint(SpringLayout.SOUTH, backButton, -10,SpringLayout.SOUTH, this);
+        menuLayout.putConstraint(SpringLayout.SOUTH, backButton, -6,SpringLayout.SOUTH, this);
         menuLayout.putConstraint(SpringLayout.EAST,  backButton,-5,SpringLayout.EAST,  this);
         menuLayout.putConstraint(SpringLayout.WEST,  backButton, 5,SpringLayout.WEST,  this);
 		
@@ -304,6 +397,17 @@ public class EditorMenuPanel extends MenuPanel{
 		filenameLoad = filename;
 		
 	}
+
+	public void setSizeDirection(Direction d) {
+		sizeDirection = d;
+	}
+		
+	
+
+	public Direction getSizeDirection() {
+		return sizeDirection;
+	}
+
 
 	
 	
