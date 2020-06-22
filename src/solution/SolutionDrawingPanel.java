@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import java.util.ArrayList;
@@ -27,6 +31,9 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	private int counter;
 	private Timer timer;
 	
+	private BufferedImage imageRight;
+	private BufferedImage imageLeft;
+	
 	public SolutionDrawingPanel() {
 		super();
 		signalsSolution = new ArrayList<>();
@@ -34,6 +41,14 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		switchRailsSolution = new ArrayList<>();
 		timer = new Timer(100, new TrainListener(this));
 		counter = 0;
+		try {
+			imageRight = ImageIO.read(new File("TrainRight.png"));
+			imageLeft = ImageIO.read(new File("TrainLeft.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		
 	}
@@ -151,13 +166,18 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    	int x = (int)(5+j*xOffset);
     		int y = (int)(5+i*yOffset)-5;
     		if(train.getDirection() == Direction.Right) {
-    			x -= 15;
+    			x -= 20;
+    			y -= 2;
+    			g.drawImage(imageRight, x, y, 25 ,10, null);
     		}else {
-    			x += 6;
+    			x += 2;
+    			y-= 2;
+    			g.drawImage(imageLeft, x, y, 25 ,10, null);
     		}
-    		g.setColor(Color.blue);
-    		g.fillRect(x, y, 15, 5);
+    		
 		}
+
+		
 
 	}
 	

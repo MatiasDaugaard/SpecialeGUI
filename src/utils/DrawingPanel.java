@@ -396,6 +396,9 @@ public class DrawingPanel extends JPanel{
 		int[][] newSignals;
 		switch (d) {
 			case Left:
+				if(WIDTH == 5) {
+					return;
+				}
 				for(int i = 0; i < HEIGHT; i++) {
 					if(rails[i][0] != 0) {
 						return;
@@ -444,6 +447,9 @@ public class DrawingPanel extends JPanel{
 				repaint();
 				break;
 			case Right :
+				if(WIDTH == 5) {
+					return;
+				}
 				for(int i = 0; i < HEIGHT; i++) {
 					if(rails[i][WIDTH-1] != 0) {
 						return;
@@ -491,6 +497,9 @@ public class DrawingPanel extends JPanel{
 				repaint();
 				break;
 			case Up:
+				if(HEIGHT ==5) {
+					return;
+				}
 				for(int i = 0; i < WIDTH; i++) {
 					if(rails[0][i] != 0) {
 						return;
@@ -531,6 +540,9 @@ public class DrawingPanel extends JPanel{
 				repaint();
 				break;
 			case Down:
+				if(HEIGHT ==5) {
+					return;
+				}
 				for(int i = 0; i < WIDTH; i++) {
 					if(rails[HEIGHT-1][i] != 0) {
 						return;
