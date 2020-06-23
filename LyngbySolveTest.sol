@@ -161,5 +161,5 @@
 </>
 <states> 32
 <generated> 32
-<time> 84.8442
+<time> 84.5378
 </solution>

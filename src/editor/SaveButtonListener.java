@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SaveButtonListener implements ActionListener{
 
@@ -27,6 +29,7 @@ public class SaveButtonListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String title = menuPanel.getFilename();
+		
 		try {
 		      File myObj = new File(title + ".txt");
 		      if (myObj.createNewFile()) {
@@ -91,7 +94,26 @@ public class SaveButtonListener implements ActionListener{
 		        writer.write(width + "\n");
 		        writer.write(height + "\n");
 		        writer.close();
-		        menuPanel.setLabelMessage("File saved");
+		        
+		        
+		        
+		        Path currentRelativePath = Paths.get("");
+				String s = currentRelativePath.toAbsolutePath().toString();
+				
+				try {
+					ProcessBuilder pb = new ProcessBuilder("/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono", s+"/Program.exe",title,s);
+					
+					Process process = pb.start();
+					int exitValue = process.waitFor();
+					if (exitValue != 0) {
+						menuPanel.setLabelMessage("File saved - No solution found");
+					}else {
+						menuPanel.setLabelMessage("File saved - Solution found");
+					}
+				} catch (IOException | InterruptedException  ex) {
+					ex.printStackTrace();
+				} 
+		        
 		        
 		      } else {
 		    	  menuPanel.setLabelMessage("File already exists");
@@ -99,5 +121,7 @@ public class SaveButtonListener implements ActionListener{
 		    } catch (IOException ex) {
 		    	menuPanel.setLabelMessage("An error occurred");
 		    }
+		
+		
 	}
 }
