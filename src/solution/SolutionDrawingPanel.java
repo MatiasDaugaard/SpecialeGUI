@@ -57,32 +57,36 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	protected void paintComponent(Graphics g) {
     	
 	    super.paintComponent(g);
-	    
-	    
-	    
-	    
+
 	}
 	
 	@Override
 	protected void drawSignals(Graphics g) {
-		int width = 5;
-		int height = 10;
+		int scale = 1;
+		int width = (int) (xOffset/4);
+		int height = (int) (yOffset/2);
+		if (width <= height/2) {
+			height = width*2;
+		}else if(height <= width*2) {
+			width = height/2;
+		}
+		double h = height + (xOffset/2.5);
 		g.setColor(Color.black);
 	    for(int i = 0; i < HEIGHT; i++) {
 	    	for(int j = 0; j < WIDTH; j++) {
 	    		if(signals[i][j] == 1) {
-	    			int x = (int)(5+j*xOffset)-5;
-		    		int y = (int)(5+i*yOffset)-16;
+	    			int x = (int)(5+j*xOffset)-(width);
+		    		int y = (int) ((int)(5+i*yOffset)-(h));
 		    		g.fillRect(x, y, width, height);
 	    		}else if(signals[i][j] == 2) {
 	    			int x = (int)(5+j*xOffset)+6;
-		    		int y = (int)(5+i*yOffset)-16;
+		    		int y = (int) ((int)(5+i*yOffset)-(h));
 		    		g.fillRect(x, y, width, height);
 	    		}else if(signals[i][j] == 3) {
 	    			int x = (int)(5+j*xOffset)+6;
-		    		int y = (int)(5+i*yOffset)-16;
+		    		int y = (int) ((int)(5+i*yOffset)-(h));
 		    		g.fillRect(x, y, width, height);
-		    		x = (int)(5+j*xOffset)-5;
+		    		x = (int)(5+j*xOffset)-width;
 		    		g.fillRect(x, y, width, height);
 	    		}
 	    	}
@@ -96,19 +100,22 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    	Signal sig = entry.getKey();
 	    	int i = sig.getLocation()/WIDTH;
 	    	int j = sig.getLocation()%WIDTH;
-	    	int x = (int)(5+j*xOffset)-5;
-    		int y = (int)(5+i*yOffset)-16;
-    		System.out.println(sig.getLocation());
+	    	int x;
+    		int y = (int) ((int)(5+i*yOffset)-(h));
 	    	if(entry.getValue()) {
 	    		g.setColor(Color.green);
+	    		y += height/10;
 	    	}else {
 	    		g.setColor(Color.red);
-	    		y = (int)(5+i*yOffset)-11;
+	    		y += (height/2)+(height/10);
 	    	}
 	    	if(sig.getDirection() == Direction.Right) {
-	    		x = (int)(5+j*xOffset)+6;
+	    		x = (int)(5+j*xOffset)+6 + width/5;
+	    	}else {
+	    		x = (int)(5+j*xOffset)-(width) + width/5;
 	    	}
-	    	g.fillArc(x+1, y+1, 3, 3, 0, 360);
+	    	int lightSize = width*3/5;
+	    	g.fillArc(x, y, lightSize, lightSize, 0, 360);
 	    	
 	    }
 	}
@@ -157,22 +164,25 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		if(trainsSolution.size() == 0) {
 			return;
 		}
+		int h = (int) (xOffset/2.5);
+		int w = (int) xOffset;
+		if(h > yOffset/2) {
+			h = (int) (yOffset/2);
+			w = (int) (h*2.5);
+		}
 		Map<Train,Integer> trainMap = trainsSolution.get(counter);
 		for(Map.Entry<Train, Integer> entry : trainMap.entrySet()) {
 			Train train = entry.getKey();
 			int loc = entry.getValue();
 			int i =  loc/WIDTH;
 	    	int j = loc%WIDTH;
-	    	int x = (int)(5+j*xOffset);
-    		int y = (int)(5+i*yOffset)-5;
+	    	int x = (int) ((int)(5+j*xOffset)-w);
+    		int y = (int) ((int)(5+i*yOffset)-h);
     		if(train.getDirection() == Direction.Right) {
-    			x -= 20;
-    			y -= 2;
-    			g.drawImage(imageRight, x, y, 25 ,10, null);
+    			g.drawImage(imageRight, x, y, w ,h, null);
     		}else {
-    			x += 2;
-    			y-= 2;
-    			g.drawImage(imageLeft, x, y, 25 ,10, null);
+    			x = (int) ((int)(5+j*xOffset)+6);
+    			g.drawImage(imageLeft, x, y, w ,h, null);
     		}
     		
 		}
