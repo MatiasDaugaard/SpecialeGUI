@@ -31,9 +31,11 @@ public class SaveButtonListener implements ActionListener{
 		String title = menuPanel.getFilename();
 		
 		try {
-		      File myObj = new File(title + ".txt");
+			  Path currentRelativePath = Paths.get("");
+			  String s = currentRelativePath.toAbsolutePath().toString()+"/Railways/";
+		      File myObj = new File(s+title + ".txt");
 		      if (myObj.createNewFile()) {
-		        FileWriter writer = new FileWriter(title + ".txt");
+		        FileWriter writer = new FileWriter(s+title + ".txt");
 		        Set<Integer> locations = new HashSet<Integer>();
 		        List<Rail> railList = drawingPanel.getRailList();
 		        List<SwitchRail> switchRailList = drawingPanel.getSwitchRailList();
@@ -95,13 +97,9 @@ public class SaveButtonListener implements ActionListener{
 		        writer.write(height + "\n");
 		        writer.close();
 		        
-		        
-		        
-		        Path currentRelativePath = Paths.get("");
-				String s = currentRelativePath.toAbsolutePath().toString();
-				
+		        String p = currentRelativePath.toAbsolutePath().toString()+"/Solver/";
 				try {
-					ProcessBuilder pb = new ProcessBuilder("/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono", s+"/Program.exe",title,s);
+					ProcessBuilder pb = new ProcessBuilder("/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono", p+"/Program.exe",title,s);
 					
 					Process process = pb.start();
 					int exitValue = process.waitFor();

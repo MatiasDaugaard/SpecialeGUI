@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -200,7 +202,10 @@ public class EditorMenuPanel extends MenuPanel{
         loadLabel.setFont(normalFont);
         this.add(loadLabel);
         
-        File f = new File(".");
+        
+        Path currentRelativePath = Paths.get("");
+		String s = currentRelativePath.toAbsolutePath().toString()+"/Railways/";
+		File f = new File(s);
         File[] railwayFiles = f.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return name.endsWith(".txt");

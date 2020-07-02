@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -41,9 +43,11 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		switchRailsSolution = new ArrayList<>();
 		timer = new Timer(100, new TrainListener(this));
 		counter = 0;
+		Path currentRelativePath = Paths.get("");
+		String s = currentRelativePath.toAbsolutePath().toString()+"/Images/";
 		try {
-			imageRight = ImageIO.read(new File("TrainRight.png"));
-			imageLeft = ImageIO.read(new File("TrainLeft.png"));
+			imageRight = ImageIO.read(new File(s+"TrainRight.png"));
+			imageLeft = ImageIO.read(new File(s+"TrainLeft.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,7 +66,6 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	
 	@Override
 	protected void drawSignals(Graphics g) {
-		int scale = 1;
 		int width = (int) (xOffset/4);
 		int height = (int) (yOffset/2);
 		if (width <= height/2) {
@@ -179,9 +182,10 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    	int x = (int) ((int)(5+j*xOffset)-w);
     		int y = (int) ((int)(5+i*yOffset)-h);
     		if(train.getDirection() == Direction.Right) {
+    			x += w/4 + w/9;
     			g.drawImage(imageRight, x, y, w ,h, null);
     		}else {
-    			x = (int) ((int)(5+j*xOffset)+6);
+    			x += (3*w/4);
     			g.drawImage(imageLeft, x, y, w ,h, null);
     		}
     		

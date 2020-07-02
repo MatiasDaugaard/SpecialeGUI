@@ -3,6 +3,8 @@ package solution;
 import java.awt.Color;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +42,9 @@ public class SolutionMenuPanel extends MenuPanel{
         this.add(menuLabel);
         
         //Find all railways in current directory
-        File f = new File(".");
+        Path currentRelativePath = Paths.get("");
+		String p = currentRelativePath.toAbsolutePath().toString()+"/Railways/";
+		File f = new File(p);
         File[] railwayFiles = f.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return name.endsWith(".txt");

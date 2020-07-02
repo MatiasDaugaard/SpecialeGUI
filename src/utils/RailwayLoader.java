@@ -3,6 +3,8 @@ package utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,9 @@ public class RailwayLoader {
 	public RailwayLoader() {}
 	
 	public boolean loadRailway(DrawingPanel drawingPanel, String title, MenuPanel menuPanel) {
-		
-		File file = new File(title + ".txt");
+		Path currentRelativePath = Paths.get("");
+		String p = currentRelativePath.toAbsolutePath().toString()+"/Railways/";
+		File file = new File(p+title + ".txt");
 		BufferedReader reader = null;
 		try {
 		    reader = new BufferedReader(new FileReader(file));
@@ -140,6 +143,7 @@ public class RailwayLoader {
 		    menuPanel.loaded();
 		    return true;
 		} catch (Exception ex) {
+			System.err.print(ex);
 		    return false;
 		} 
 		
@@ -147,7 +151,9 @@ public class RailwayLoader {
 	
 	public void loadSolution(String title, SolutionDrawingPanel drawingPanel, MenuPanel menuPanel) {
 		
-		File file = new File(title + ".sol");
+		Path currentRelativePath = Paths.get("");
+		String p = currentRelativePath.toAbsolutePath().toString()+"/Railways/";
+		File file = new File(p+title + ".sol");
 		BufferedReader reader = null;
 		
 		int length = 1;
@@ -230,7 +236,7 @@ public class RailwayLoader {
 		    
 		    reader.close();
 		} catch (Exception ex) {
-			System.out.println("F in loading solution");
+			System.err.println(ex);
 		}
 		
 	}
