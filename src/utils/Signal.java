@@ -23,6 +23,15 @@ public class Signal {
 		this.direction = direction;
 	}
 
-	
+	@Override
+    public boolean equals(Object o) {   
+		if (!(o instanceof Signal)) { 
+            return false; 
+        } 
+        Signal s = (Signal) o; 
+          
+        // Compare the data members and return accordingly  
+        return (location == s.getLocation() && direction == s.getDirection()); 
+    }
 
 }

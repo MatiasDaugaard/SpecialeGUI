@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import utils.Direction;
 import utils.Rail;
+import utils.Signal;
 import utils.SwitchRail;
 import utils.Train;
 
@@ -39,6 +41,7 @@ public class SaveButtonListener implements ActionListener{
 		        Set<Integer> locations = new HashSet<Integer>();
 		        List<Rail> railList = drawingPanel.getRailList();
 		        List<SwitchRail> switchRailList = drawingPanel.getSwitchRailList();
+		        railwayIsLegal(drawingPanel.getTrainList(),switchRailList,drawingPanel.getSignalList(),railList);
 		        for(Rail r : railList) {
 		        	locations.add(r.getStart());
 		        	locations.add(r.getEnd());
@@ -118,7 +121,61 @@ public class SaveButtonListener implements ActionListener{
 		      }
 		    } catch (IOException ex) {
 		    	menuPanel.setLabelMessage("An error occurred");
+		    } catch (Exception ex) {
+		    	menuPanel.setLabelMessage("Railway not constructed correctly");
 		    }
+		
+		
+	}
+
+	private void railwayIsLegal(List<Train> trains, List<SwitchRail> switchrails, List<Signal> signals, List<Rail> rails) throws Exception {
+		for(Train t : trains) {
+			int s = t.getStartLocation();
+			int e = t.getEndLocation();
+			Direction d = t.getDirection();
+			if (!(signals.contains(new Signal(s,d)))) {
+				throw new Exception();
+			}
+			int lx = d == Direction.Left ? e-1 : e+1;
+			Rail r = new Rail(e,lx);
+			if (!signals.contains(new Signal(e,d))) {
+				if (rails.contains(r)) {
+					throw new Exception();
+				}else {
+					boolean b = false;
+					for(SwitchRail sr : switchrails) {
+						int l1 = sr.getStart();
+						int l2 = sr.getEnd1();
+						int l3 = sr.getEnd2();
+						Direction dx = sr.getDirection();
+						if (l1 == e && dx == d) {
+							b = true;
+							break;
+						}else if ((l2 == e || l3 == e) && d != dx) {
+							b = true;
+							break;
+						}
+					}
+					if (b) {
+						throw new Exception();
+					}
+				}
+					
+			}
+					
+		}
+		
+		for(SwitchRail sr : switchrails) {
+			int l1 = sr.getStart();
+			int l2 = sr.getEnd1();
+			int l3 = sr.getEnd2();
+			Direction d = sr.getDirection();
+			Direction opd = d == Direction.Left ? Direction.Right : Direction.Left;
+			
+			if (!(signals.contains(new Signal(l1,d)) && signals.contains(new Signal(l2,opd))&& signals.contains(new Signal(l3,opd)))) {
+				throw new Exception();
+			}		
+		}
 		
 		
 	}

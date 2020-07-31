@@ -206,6 +206,9 @@ public class DrawingPanel extends JPanel{
 	public List<SwitchRail> getSwitchRailList(){
 		return switchRailList;
 	}
+	public List<Signal> getSignalList() {
+		return signalList;
+	}	
 
 	public void setWIDTH(int width) {
 		WIDTH = width;
