@@ -2,7 +2,7 @@ package solution;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//Listener for restart button in solution viewer
 public class RestartButtonListener implements ActionListener{
 
 	private SolutionDrawingPanel panel;

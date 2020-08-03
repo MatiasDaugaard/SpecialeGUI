@@ -1,5 +1,5 @@
 package utils;
-
+//Class used to model trains
 public class Train {
 
 	private int startLocation;

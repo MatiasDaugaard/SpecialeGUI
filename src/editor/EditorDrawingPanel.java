@@ -16,7 +16,7 @@ import utils.Signal;
 import utils.SwitchRail;
 import utils.Train;
 
-
+//Class for the drawingpanel of the editor window
 public class EditorDrawingPanel extends DrawingPanel{
     
     private DrawingListener drawingListener;
@@ -32,12 +32,11 @@ public class EditorDrawingPanel extends DrawingPanel{
 		drawingListener = new DrawingListener(this);
 		switchHeight = 1;
 		this.addMouseListener(drawingListener);
-		this.addKeyListener(drawingListener);
 		
 		
 		
 	}
-	
+	//Function used to change selected button type
 	public void setButtonType(int i) {
 		switch (i) {
 		case 0 :
@@ -67,7 +66,7 @@ public class EditorDrawingPanel extends DrawingPanel{
 		}
 		
 	}
-	
+	//Function to add train to railway
 	public void addTrain(int i, int j, int m, int n) {
 		if(rails[i][j] != 0 && rails[m][n] != 0) {
 			int start = i*WIDTH+j;
@@ -89,13 +88,13 @@ public class EditorDrawingPanel extends DrawingPanel{
 		}
 		
 	}
-	
+	//Function to remove train from railway
 	public void removeTrain(int i, int j) {
 		int start = i*WIDTH+j;
 		trainList.removeIf(t -> t.getStartLocation() == start);
 		repaint();
 	}
-	
+	//Function to add signal to railway
 	public void addSignal(int i, int j) {
 		if(rails[i][j] != 0) {
 			if (d == Direction.Left) {
@@ -118,7 +117,7 @@ public class EditorDrawingPanel extends DrawingPanel{
 		}
 		
 	}
-	
+	//Function to remove signal from railway
 	public void removeSignal(int i, int j) {
 		signals[i][j] = 0;
 		int loc = i*WIDTH+j;
@@ -128,7 +127,7 @@ public class EditorDrawingPanel extends DrawingPanel{
 	}
 	
 	
-	
+	//Function to add rail to railway
 	public void addRail(int i, int j, int m, int n) {
 		int start = i*WIDTH+j;
 		int end = m*WIDTH+n;
@@ -168,7 +167,7 @@ public class EditorDrawingPanel extends DrawingPanel{
 				
 		}
 	}
-	
+	//Function to remove rail from railway
 	public void removeRail(int i, int j, int m, int n) {
 		int start = i*WIDTH+j;
 		int end = m*WIDTH+n;
@@ -188,7 +187,7 @@ public class EditorDrawingPanel extends DrawingPanel{
 		}
 		
 	}
-	
+	//Function to add switch-rail to railway
 	public void addSwitchRail(int i, int j) {
 		
 		if(d == Direction.Left && p == Direction.Up) {
@@ -270,7 +269,7 @@ public class EditorDrawingPanel extends DrawingPanel{
 		}
 		repaint();
 	}
-	
+	//Function to remove switch-rail from railway
 	public void removeSwitchRail(int i, int j) {
 		int start = i*WIDTH+(j);
 		for(SwitchRail r : switchRailList) {
@@ -348,13 +347,14 @@ public class EditorDrawingPanel extends DrawingPanel{
 		}
 		repaint();
 	}
-	
+	//Function used to set highlight on selected dot in grid
 	public void setHighlight(int i, int j) {
 		highlightI = i;
 		highlightJ = j;
 		repaint();
 	}
-
+	
+	//Function used to remove everything from grid
 	public void reset() {
 		super.reset();
 		drawingListener.reset();

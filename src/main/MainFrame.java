@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SpringLayout;
-
+// The frame for the main menu
 public class MainFrame extends JFrame {
 	
 	public MainFrame() {

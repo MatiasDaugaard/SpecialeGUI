@@ -9,7 +9,7 @@ import javax.swing.JRadioButton;
 import utils.ButtonType;
 import utils.Direction;
 
-
+//Listener for buttons in editor menu panel
 public class ButtonListener implements ActionListener{
 
 	private JButton[] buttons;

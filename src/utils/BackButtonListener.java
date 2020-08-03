@@ -15,6 +15,7 @@ public class BackButtonListener implements ActionListener{
 		this.frame = frame;
 	}
 	
+	// Function to return to main menu, by remove current frame and creating new main menu frame
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		new MainFrame();

@@ -20,7 +20,7 @@ import solution.SolutionListListener;
 import utils.BackButtonListener;
 import utils.Direction;
 import utils.MenuPanel;
-
+// The menu panel for the editor window
 public class EditorMenuPanel extends MenuPanel{
 	
 	

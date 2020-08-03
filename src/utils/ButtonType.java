@@ -1,5 +1,5 @@
 package utils;
-
+// Enum used to keep track of selected button in editor
 public enum ButtonType {
 
 	Rail,

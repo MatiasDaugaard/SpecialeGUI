@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import utils.MenuPanel;
-
+//Listener for the dropdown menu to select solution
 public class SolutionListListener implements ActionListener{
 
 	private JComboBox list;

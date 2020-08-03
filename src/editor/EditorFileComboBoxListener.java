@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
-
+//Listener for the dropdown menu of railways
 public class EditorFileComboBoxListener implements ActionListener{
 
 	private JComboBox<String> list;

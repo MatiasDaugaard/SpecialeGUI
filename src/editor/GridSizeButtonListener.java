@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JRadioButton;
 
 import utils.Direction;
-
+//Listener for the directional button for increasing or decreasing grid sizes
 public class GridSizeButtonListener implements ActionListener{
 
 	private EditorMenuPanel panel;

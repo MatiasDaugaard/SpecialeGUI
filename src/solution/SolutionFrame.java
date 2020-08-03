@@ -7,11 +7,11 @@ import javax.swing.SpringLayout;
 
 import utils.DrawingPanel;
 
-
+//Class for the frame for the solution viewer
 public class SolutionFrame extends JFrame{
 	
 	
-	public DrawingPanel networkPanel;
+	public DrawingPanel drawingPanel;
 
 	public SolutionFrame() {
 		
@@ -21,11 +21,11 @@ public class SolutionFrame extends JFrame{
         contentPane.setLayout(layout);
         
         
-        networkPanel = new SolutionDrawingPanel();
+        drawingPanel = new SolutionDrawingPanel();
         SolutionMenuPanel menuPanel = new SolutionMenuPanel(this); 
         
         contentPane.add(menuPanel);
-        contentPane.add(networkPanel);
+        contentPane.add(drawingPanel);
  
         
         
@@ -47,21 +47,21 @@ public class SolutionFrame extends JFrame{
                 			 240,
                 			 SpringLayout.WEST, contentPane);
  
-        layout.putConstraint(SpringLayout.WEST, networkPanel,
+        layout.putConstraint(SpringLayout.WEST, drawingPanel,
                              5,
                              SpringLayout.EAST, menuPanel);
         
-        layout.putConstraint(SpringLayout.NORTH, networkPanel,
+        layout.putConstraint(SpringLayout.NORTH, drawingPanel,
                              5,
                              SpringLayout.NORTH, contentPane);
 
         layout.putConstraint(SpringLayout.EAST, contentPane,
                              5,
-                             SpringLayout.EAST, networkPanel);
+                             SpringLayout.EAST, drawingPanel);
         
         layout.putConstraint(SpringLayout.SOUTH, contentPane,
                              5,
-                             SpringLayout.SOUTH, networkPanel);
+                             SpringLayout.SOUTH, drawingPanel);
         
         
         

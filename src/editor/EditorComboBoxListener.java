@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import utils.MenuPanel;
-
+//Listener for dropdown menu with switch-rail height options
 public class EditorComboBoxListener implements ActionListener{
 
 	private JComboBox<String> list;

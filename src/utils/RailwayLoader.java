@@ -1,23 +1,23 @@
 package utils;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import solution.SolutionDrawingPanel;
-
+// Class used to load in a railway from a file and load in a solution
 public class RailwayLoader {
 	
 	
 	public RailwayLoader() {}
-	
+	// Function used to load in a railway
 	public boolean loadRailway(DrawingPanel drawingPanel, String title, MenuPanel menuPanel) {
 		Path currentRelativePath = Paths.get("");
 		String p = currentRelativePath.toAbsolutePath().toString()+"/Railways/";
@@ -83,6 +83,8 @@ public class RailwayLoader {
 		    int width = Integer.parseInt(line);
 		    line = reader.readLine();
 		    int height = Integer.parseInt(line);
+		    
+		    
 		    int[][] signals = new int[height][width];
 		    List<Signal> signalList = new ArrayList<>();
 		    for(int a = 0; a < signalLoc.size(); a++) {
@@ -127,7 +129,7 @@ public class RailwayLoader {
 		    		rails[i][j] = 6;
 		    	}
 		    }
-		    
+		  //Set the loaded data in the drawing panel
 		    drawingPanel.reset();
 		    drawingPanel.setWIDTH(width);
 		    drawingPanel.setHEIGHT(height);
@@ -148,7 +150,7 @@ public class RailwayLoader {
 		} 
 		
 	}
-	
+	// Function used to load in a solution file
 	public void loadSolution(String title, SolutionDrawingPanel drawingPanel, MenuPanel menuPanel) {
 		
 		Path currentRelativePath = Paths.get("");

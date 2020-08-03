@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-
+// Class used as basis for the drawing panel in the editor and solution shower
+// Responsable to drawing the right panel, with the rail way
 public class DrawingPanel extends JPanel{
 	
 	protected int WIDTH = 100;
@@ -52,6 +53,7 @@ public class DrawingPanel extends JPanel{
 	    xOffset = (this.getSize().width-20)/(WIDTH-1);
 	    yOffset = (this.getSize().height-20)/(HEIGHT-1);
 	    
+	    // Draw the black dots
 	    g.setColor(Color.black);
 	    for(int i = 0; i < HEIGHT; i++) {
 	    	for(int j = 0; j < WIDTH; j++) {
@@ -238,7 +240,7 @@ public class DrawingPanel extends JPanel{
 		this.signalList = signalList;
 		
 	}
-	
+	// Function used to increase grid size of drawing panel
 	public void increaseSize(Direction d) {
 		int[][] newRails;
 		int[][] newSignals;
@@ -393,7 +395,7 @@ public class DrawingPanel extends JPanel{
 		}
 		
 	}
-	
+	// Function used to decrease grid size of drawing panel
 	public void decreaseSize(Direction d) {
 		int[][] newRails;
 		int[][] newSignals;

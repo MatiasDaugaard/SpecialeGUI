@@ -1,5 +1,5 @@
 package utils;
-
+//Class used to model a switch-rail
 public class SwitchRail implements Comparable<SwitchRail>{
 
 	private int start;

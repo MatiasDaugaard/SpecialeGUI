@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import editor.EditorFrame;
-
+// Listener for button to go to editor window
 public class EditorButtonListener implements ActionListener{
 	
 	private MainFrame frame;

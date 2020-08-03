@@ -4,7 +4,7 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+// Class used as basis for left menu panel for editor and solution viewer
 public class MenuPanel extends JPanel{
 
 	

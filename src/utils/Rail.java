@@ -1,7 +1,5 @@
 package utils;
-
-import java.util.Comparator;
-
+//Class used to model a rail
 public class Rail implements Comparable<Rail>{
 
 	private int start;
@@ -35,7 +33,6 @@ public class Rail implements Comparable<Rail>{
         } 
         Rail r = (Rail) o; 
           
-        // Compare the data members and return accordingly  
         return (start == r.getStart() && end == r.getEnd())|| (start == r.getEnd() && end == r.getStart()); 
     } 
 	

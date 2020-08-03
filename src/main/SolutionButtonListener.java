@@ -2,10 +2,8 @@ package main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import editor.EditorFrame;
 import solution.SolutionFrame;
-
+//Lister for button to go to solution viewer
 public class SolutionButtonListener implements ActionListener{
 
 	private MainFrame frame;

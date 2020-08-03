@@ -1,13 +1,10 @@
 package editor;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import utils.ButtonType;
-import utils.Direction;
-
-public class DrawingListener implements MouseListener,KeyListener{
+//Listener used for mouse-event for drawing on the drawing panel
+public class DrawingListener implements MouseListener{
 
 	private EditorDrawingPanel panel;
 	public static int lastI = -1;
@@ -85,18 +82,6 @@ public class DrawingListener implements MouseListener,KeyListener{
 	@Override
 	public void mouseExited(MouseEvent e) {}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if(e.getKeyChar() == ' ') {
-			reset();
-		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {}
-
-	@Override
-	public void keyReleased(KeyEvent e) {}
 
 	public void reset() {
 		panel.setHighlight(-1, -1);

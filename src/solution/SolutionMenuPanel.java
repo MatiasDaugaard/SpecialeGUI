@@ -93,7 +93,7 @@ public class SolutionMenuPanel extends MenuPanel{
         
         JButton loadButton = new JButton("Load solution");
         loadButton.setFont(normalFont);
-        LoadButtonListener loadListener = new LoadButtonListener(this, frame.networkPanel);
+        LoadButtonListener loadListener = new LoadButtonListener(this, frame.drawingPanel);
         loadButton.addActionListener(loadListener);
         this.add(loadButton);
         
@@ -115,19 +115,19 @@ public class SolutionMenuPanel extends MenuPanel{
         startButton = new JButton("Start");
         startButton.setFont(normalFont);
         startButton.setVisible(false);
-        startButton.addActionListener(new StartButtonListener((SolutionDrawingPanel)frame.networkPanel));
+        startButton.addActionListener(new StartButtonListener((SolutionDrawingPanel)frame.drawingPanel));
         this.add(startButton);
         
         stopButton = new JButton("Stop");
         stopButton.setFont(normalFont);
         stopButton.setVisible(false);
-        stopButton.addActionListener(new StopButtonListener((SolutionDrawingPanel)frame.networkPanel));
+        stopButton.addActionListener(new StopButtonListener((SolutionDrawingPanel)frame.drawingPanel));
         this.add(stopButton);
         
         restartButton = new JButton("Restart");
         restartButton.setFont(normalFont);
         restartButton.setVisible(false);
-        restartButton.addActionListener(new RestartButtonListener((SolutionDrawingPanel)frame.networkPanel));
+        restartButton.addActionListener(new RestartButtonListener((SolutionDrawingPanel)frame.drawingPanel));
         this.add(restartButton);
         
         JLabel borderLabel = new JLabel("___________________________");
@@ -138,13 +138,13 @@ public class SolutionMenuPanel extends MenuPanel{
         nextButton = new JButton("Next state");
         nextButton.setFont(normalFont);
         nextButton.setVisible(false);
-        nextButton.addActionListener(new NextButtonListener((SolutionDrawingPanel)frame.networkPanel));
+        nextButton.addActionListener(new NextButtonListener((SolutionDrawingPanel)frame.drawingPanel));
         this.add(nextButton);
         
         prevButton = new JButton("Previous state");
         prevButton.setFont(normalFont);
         prevButton.setVisible(false);
-        prevButton.addActionListener(new PrevButtonListener((SolutionDrawingPanel)frame.networkPanel));
+        prevButton.addActionListener(new PrevButtonListener((SolutionDrawingPanel)frame.drawingPanel));
         this.add(prevButton);
         
         

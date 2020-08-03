@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import utils.Direction;
-
+//Listener for increase grid size button
 public class IncreaseButtonListener implements ActionListener {
 
 	private EditorMenuPanel menuPanel;

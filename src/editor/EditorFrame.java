@@ -1,10 +1,9 @@
 package editor;
-import java.awt.Color;
+
 import java.awt.Container;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-
+// The frame for the editor window
 public class EditorFrame extends JFrame{
 	
 	public EditorDrawingPanel drawingPanel;

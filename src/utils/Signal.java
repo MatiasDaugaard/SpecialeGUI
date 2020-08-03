@@ -1,6 +1,6 @@
 package utils;
-
-public class Signal {
+//Class used to model signals
+public class Signal implements Comparable<Signal>{
 	
 	private int location;
 	private Direction direction;
@@ -33,5 +33,15 @@ public class Signal {
         // Compare the data members and return accordingly  
         return (location == s.getLocation() && direction == s.getDirection()); 
     }
+
+	@Override
+	public int compareTo(Signal o) {
+		int l = o.getLocation();
+		Direction d = o.getDirection();
+	    if(l == location) {
+	    	return d == Direction.Left ? 1 : -1;
+	    }
+	    return location-l;
+	}
 
 }

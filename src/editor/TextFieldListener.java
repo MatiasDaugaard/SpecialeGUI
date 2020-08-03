@@ -6,7 +6,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import utils.MenuPanel;
-
+//Lister for textfield to enter railway name
 public class TextFieldListener implements DocumentListener{
 
 	private MenuPanel menuPanel;

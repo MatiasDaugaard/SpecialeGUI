@@ -23,7 +23,7 @@ import utils.DrawingPanel;
 import utils.Signal;
 import utils.SwitchRail;
 import utils.Train;
-
+//Class for the solution viewer drawing panel
 public class SolutionDrawingPanel extends DrawingPanel{
 	
 	private List<Map<Signal,Boolean>> signalsSolution;
@@ -43,13 +43,13 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		switchRailsSolution = new ArrayList<>();
 		timer = new Timer(100, new TrainListener(this));
 		counter = 0;
+		// Load images of trains
 		Path currentRelativePath = Paths.get("");
 		String s = currentRelativePath.toAbsolutePath().toString()+"/Images/";
 		try {
 			imageRight = ImageIO.read(new File(s+"TrainRight.png"));
 			imageLeft = ImageIO.read(new File(s+"TrainLeft.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -66,6 +66,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	
 	@Override
 	protected void drawSignals(Graphics g) {
+		//Draw the signal boxes
 		int width = (int) (xOffset/4);
 		int height = (int) (yOffset/2);
 		if (width <= height/2) {
@@ -97,7 +98,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 	    if(signalsSolution.size() == 0) {
 			return;
 		}
-	    
+	    //Draw the signal values in the current state
 	    Map<Signal,Boolean> signalMap = signalsSolution.get(counter);
 	    for (Map.Entry<Signal, Boolean> entry : signalMap.entrySet()) {
 	    	Signal sig = entry.getKey();
@@ -129,6 +130,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 			super.drawSwitchRails(g);
 			return;
 		}
+		//Draw the current switch-rail setup for the current state
 		Map<SwitchRail,Boolean> switchRailMap = switchRailsSolution.get(counter);
 		for(Map.Entry<SwitchRail, Boolean> entry : switchRailMap.entrySet()) {
 			SwitchRail switchRail = entry.getKey();
@@ -167,6 +169,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		if(trainsSolution.size() == 0) {
 			return;
 		}
+		//Draw the trains at their locations for the current state
 		int h = (int) (xOffset/2.5);
 		int w = (int) xOffset;
 		if(h > yOffset/2) {
@@ -194,28 +197,28 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		
 
 	}
-	
+	//Function used start the automatic solution viewer
 	public void start() {
 		timer.start();
 		
 		
 		
 	}
-	
+	//Function used stop the automatic solution viewer
 	public void stop() {
 		timer.stop();
 		
 	}
 	
 	
-
+	//Function used to go back to first state in solution
 	public void restart() {
 		stop();
 		counter = 0;
 		repaint();
 		
 	}
-	
+	//Function used to add a state to the solution state list
 	public void addState(List<Boolean> signals, List<Integer> trains, List<Boolean> rails) {
 		
 		int c = 0;
@@ -245,7 +248,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		}
 		switchRailsSolution.add(switchrailMap);
 	}
-
+	//Function used to clear solution
 	public void resetSolution() {
 		trainsSolution = new ArrayList<>();
 		signalsSolution = new ArrayList<>();
@@ -254,7 +257,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		repaint();
 		
 	}
-	
+	//Function used to move to next state in solution
 	public void next() {
 		stop();
 		if(counter < trainsSolution.size() -1) {
@@ -264,7 +267,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		
 		
 	}
-
+	//Function used to move to previuos state in solution
 	public void prev() {
 		stop();
 		if(counter > 0) {
@@ -274,7 +277,7 @@ public class SolutionDrawingPanel extends DrawingPanel{
 		
 	}
 
-	
+	//Class used to automatically go through solution
 	private class TrainListener implements ActionListener{
 
 		private SolutionDrawingPanel panel;

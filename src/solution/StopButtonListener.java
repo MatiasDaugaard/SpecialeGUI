@@ -2,7 +2,7 @@ package solution;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//Listener for stop button in solution viewer
 public class StopButtonListener implements ActionListener {
 
 	private SolutionDrawingPanel panel;
