@@ -1031,5 +1031,5 @@
 </>
 <states> 206
 <generated> 556
-<time> 718.5829
+<time> 1376.072
 </solution>

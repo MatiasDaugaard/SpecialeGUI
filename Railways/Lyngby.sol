@@ -96,5 +96,5 @@
 </>
 <states> 19
 <generated> 60
-<time> 149.149
+<time> 119.4092
 </solution>
