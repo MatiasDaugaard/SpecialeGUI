@@ -83,26 +83,6 @@ public class SaveButtonListener implements ActionListener{
 				}
 				writer.write(":\n");
 				
-				/*
-				int width = drawingPanel.getWIDTH();
-				int height = drawingPanel.getHEIGHT();
-				int[][] signals = drawingPanel.getSignals();
-				for (int i = 0; i < height; i++) {
-					for (int j = 0; j < width; j++) {
-						int x = i * width + j;
-						if (signals[i][j] == 1) {
-							writer.write(x + " L\n");
-						}
-						if (signals[i][j] == 2) {
-							writer.write(x + " R\n");
-						}
-						if (signals[i][j] == 3) {
-							writer.write(x + " L\n");
-							writer.write(x + " R\n");
-						}
-					}
-				}*/
-				
 				// Sort the signals in order smallest to largest, if same left to right, and write them to file
 				List<Signal> signalList = drawingPanel.getSignalList();
 				signalList.sort(null);
@@ -129,7 +109,8 @@ public class SaveButtonListener implements ActionListener{
 				// Try to find a solution to the railway
 				String p = currentRelativePath.toAbsolutePath().toString() + "/Solver/";
 				try {
-					ProcessBuilder pb = new ProcessBuilder("/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono", p + "/Program.exe",title, s);
+					ProcessBuilder pb = new ProcessBuilder("/Library/Frameworks/Mono.framework/Versions/Current/Commands/mono", 
+							p + "/Program.exe",title, s);
 
 					Process process = pb.start();
 					int exitValue = process.waitFor();
